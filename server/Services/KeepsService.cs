@@ -26,7 +26,7 @@ public class KeepsService : IKeepsService<Keep>
 
   public List<Keep> GetAll()
   {
-    throw new NotImplementedException();
+    return _repo.GetAll();
   }
 
   public List<Keep> GetByProfileId(string profileId)

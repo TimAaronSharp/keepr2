@@ -15,6 +15,7 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
   private readonly KeepsService _keepsService;
   private readonly Auth0Provider _auth0Provider;
 
+  // NOTE Create request method. 🛠️ Sets keepData.CreatorId = userInfo.Id to prevent users from creating a keep with another user's id.
   [Authorize]
   [HttpPost]
   public async Task<ActionResult<Keep>> Create([FromBody] Keep keepData)
@@ -42,9 +43,18 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
     throw new NotImplementedException();
   }
 
+  // NOTE GetAll request method. 🧺 Gets all keeps from the database
+  [HttpGet]
   public ActionResult<List<Keep>> GetAll()
   {
-    throw new NotImplementedException();
+    try
+    {
+      return Ok(_keepsService.GetAll());
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<Keep>> GetById(int keepId)
