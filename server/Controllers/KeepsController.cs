@@ -2,19 +2,34 @@
 namespace keepr2.Controllers;
 
 [ApiController]
-[Route("api[controller]")]
+[Route("api/[controller]")]
 
 public class KeepsController : ControllerBase, IKeepsController<Keep>
 {
-  public KeepsController(KeepsService keepsService)
-  {
-    this.keepsService = keepsService;
-  }
-  private readonly KeepsService keepsService;
 
-  public Task<ActionResult<Keep>> Create([FromBody] Keep keepData)
+  public KeepsController(KeepsService keepsService, Auth0Provider auth0Provider)
   {
-    throw new NotImplementedException();
+    _keepsService = keepsService;
+    _auth0Provider = auth0Provider;
+  }
+  private readonly KeepsService _keepsService;
+  private readonly Auth0Provider _auth0Provider;
+
+  [Authorize]
+  [HttpPost]
+  public async Task<ActionResult<Keep>> Create([FromBody] Keep keepData)
+  {
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      keepData.CreatorId = userInfo.Id;
+      return Ok(_keepsService.Create(keepData));
+
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<string>> Delete(int keepId)

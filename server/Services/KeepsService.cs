@@ -11,7 +11,7 @@ public class KeepsService : IKeepsService<Keep>
 
   public Keep Create(Keep keepData)
   {
-    throw new NotImplementedException();
+    return _repo.Create(keepData);
   }
 
   public string Delete(int keepId, Profile userInfo)
