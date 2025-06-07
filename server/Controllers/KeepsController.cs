@@ -57,8 +57,18 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
     }
   }
 
-  public Task<ActionResult<Keep>> GetById(int keepId)
+  // NOTE GetById request method. 🔍 Gets a keep by its id (goes through _keepsService.IncrementViews())
+  [HttpGet("{keepId}")]
+  public async Task<ActionResult<Keep>> GetById(int keepId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_keepsService.IncrementViews(keepId, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 }

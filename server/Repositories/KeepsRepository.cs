@@ -61,7 +61,23 @@ public class KeepsRepository : IKeepsRepository<Keep>
 
   public Keep GetById(int keepId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    keeps.*,
+    accounts.*,
+    keep_count.*
+    FROM keeps
+    INNER JOIN accounts ON accounts.id = keeps.creator_id
+    INNER JOIN keep_count ON keep_count.id = keeps.id
+    WHERE keeps.id = @keepId;";
+
+    Keep foundKeep = _db.Query(sql, (Keep keep, Profile account, Keep keepCount) =>
+    {
+      keep.Creator = account;
+      keep.Kept = keepCount.Kept;
+      return keep;
+    }, new { keepId }).SingleOrDefault();
+    return foundKeep;
   }
 
   public List<Keep> GetByProfileId(string profileId)
@@ -71,6 +87,14 @@ public class KeepsRepository : IKeepsRepository<Keep>
 
   public int IncrementViews(int keepId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    UPDATE keeps
+    SET views = views + 1
+    WHERE id = @keepId LIMIT 1;
+    
+    SELECT views FROM keeps WHERE id = @keepId LIMIT 1;";
+
+    return _db.ExecuteScalar<int>(sql, new { keepId });
+
   }
 }
