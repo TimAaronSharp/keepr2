@@ -10,6 +10,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
   }
   private readonly IDbConnection _db;
 
+  // NOTE Creates new keep in database.
   public Keep Create(Keep keepData)
   {
     string sql = @"
@@ -37,11 +38,25 @@ public class KeepsRepository : IKeepsRepository<Keep>
     throw new NotImplementedException();
   }
 
-  public Keep Edit(Keep updateKeepData)
+  // NOTE Edits keep in database.
+  public void Edit(Keep updateKeepData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    UPDATE keeps
+    SET
+    name = @Name,
+    description = @Description
+    WHERE id = @id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, updateKeepData);
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} were updated, which is very bad and means your code is bad and you should feel bad. -Dr. Johnathan Alfred Zoidberg");
+    }
   }
 
+  // NOTE Gets all keeps from database.
   public List<Keep> GetAll()
   {
     string sql = @"
@@ -59,6 +74,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     return keeps;
   }
 
+  // NOTE Gets keep by is from database.
   public Keep GetById(int keepId)
   {
     string sql = @"
@@ -85,6 +101,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     throw new NotImplementedException();
   }
 
+  // NOTE Increments a keep's view count in database.
   public int IncrementViews(int keepId)
   {
     string sql = @"

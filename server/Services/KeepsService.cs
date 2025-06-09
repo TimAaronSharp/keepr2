@@ -9,7 +9,7 @@ public class KeepsService : IKeepsService<Keep>
   }
   private readonly KeepsRepository _repo;
 
-  // NOTE Creates
+  // NOTE Passes the keepData to repo.
   public Keep Create(Keep keepData)
   {
     return _repo.Create(keepData);
@@ -20,17 +20,30 @@ public class KeepsService : IKeepsService<Keep>
     throw new NotImplementedException();
   }
 
+  // NOTE Gets keep by id, updates keep with new updateKeepData, and sends the updated keep to repo. Performs verification that the user is the keep creator.
   public Keep Edit(int keepId, Keep updateKeepData, Profile userInfo)
   {
-    throw new NotImplementedException();
+
+    Keep keep = GetById(keepId);
+
+    if (keep.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot edit another user's keep, {userInfo.Name}".ToUpper());
+    }
+
+    keep.Name = updateKeepData.Name ?? keep.Name;
+    keep.Description = updateKeepData.Description ?? keep.Description;
+
+    _repo.Edit(keep);
+    return keep;
   }
-  // NOTE Gets all keeps
+  // NOTE Gets all keeps from repo.
   public List<Keep> GetAll()
   {
     return _repo.GetAll();
   }
 
-  // NOTE Gets keep by it's id. Does null check in case user is guessing id's or for some reason it comes back null.
+  // NOTE Gets keep by it's id from repo. Does null check in case user is guessing id's or for some reason it comes back null.
   private Keep GetById(int keepId)
   {
     Keep keep = _repo.GetById(keepId);
@@ -48,13 +61,13 @@ public class KeepsService : IKeepsService<Keep>
     throw new NotImplementedException();
   }
 
-  // NOTE Checks if user is the creator of the keep. If not, increments the view count. If user is creator it returns the keep as is so that the creator can't artificially inflate view count.
+  // NOTE Increments the keep's view count. ➕ If user is the keep creator it returns the keep as is so that the creator can't artificially inflate view count. (Of course they could still do this while logged out).
   public Keep IncrementViews(int keepId, Profile userInfo)
   {
 
-    Keep keep = _repo.GetById(keepId);
+    Keep keep = GetById(keepId);
 
-    if (keep.CreatorId == userInfo.Id)
+    if (keep.CreatorId == userInfo?.Id)
     {
       return keep;
     }
