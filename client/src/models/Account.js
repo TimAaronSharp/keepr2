@@ -1,4 +1,14 @@
-export class Account {
+// NOTE Created Profile class so and account's email address would not need to be sent across the network when unnecessary.
+export class Profile{
+  constructor(data){
+    this.id = data.id
+    this.name = data.name
+    this.picture = data.picture
+    this.coverImg = data.coverImg
+  }
+}
+
+export class Account extends Profile {
   /**
    * @typedef AccountData
    * @property {string} id
@@ -9,10 +19,8 @@ export class Account {
    * @param {AccountData} data
    */
   constructor(data) {
-    this.id = data.id
+    super(data)
     this.email = data.email
-    this.name = data.name
-    this.picture = data.picture
     // TODO add additional properties if needed
   }
 }
