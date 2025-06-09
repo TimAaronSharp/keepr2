@@ -9,18 +9,27 @@ public class KeepsService : IKeepsService<Keep>
   }
   private readonly KeepsRepository _repo;
 
-  // NOTE Passes the keepData to repo.
+  // NOTE 🛠️ Passes the keepData to repo for creation in database.
   public Keep Create(Keep keepData)
   {
     return _repo.Create(keepData);
   }
-
+  // NOTE 💣 Gets keep by id, verifies user is the keep creator (if not throws exception), and sends keepId to repo for deletion from database.
   public string Delete(int keepId, Profile userInfo)
   {
-    throw new NotImplementedException();
+    Keep keep = GetById(keepId);
+
+    if (keep.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot delete other users' keeps, {userInfo.Id}".ToUpper());
+    }
+
+    _repo.Delete(keepId);
+
+    return $"Keep: {keep.Name}, Id: {keep.Id} has been deleted. You monster";
   }
 
-  // NOTE Gets keep by id, updates keep with new updateKeepData, and sends the updated keep to repo. Performs verification that the user is the keep creator.
+  // NOTE 🧵 Gets keep by id, updates keep with new updateKeepData, and sends the updated keep to repo. Performs verification that the user is the keep creator.
   public Keep Edit(int keepId, Keep updateKeepData, Profile userInfo)
   {
 
@@ -37,13 +46,13 @@ public class KeepsService : IKeepsService<Keep>
     _repo.Edit(keep);
     return keep;
   }
-  // NOTE Gets all keeps from repo.
+  // NOTE 🧺 Gets all keeps from repo.
   public List<Keep> GetAll()
   {
     return _repo.GetAll();
   }
 
-  // NOTE Gets keep by it's id from repo. Does null check in case user is guessing id's or for some reason it comes back null.
+  // NOTE 🔍 Gets keep by it's id from repo. Does null check in case user is guessing id's or for some reason it comes back null.
   private Keep GetById(int keepId)
   {
     Keep keep = _repo.GetById(keepId);
@@ -61,7 +70,7 @@ public class KeepsService : IKeepsService<Keep>
     throw new NotImplementedException();
   }
 
-  // NOTE Increments the keep's view count. ➕ If user is the keep creator it returns the keep as is so that the creator can't artificially inflate view count. (Of course they could still do this while logged out).
+  // NOTE ➕ Increments the keep's view count. If user is the keep creator it returns the keep as is so that the creator can't artificially inflate view count. (Of course they could still do this while logged out).
   public Keep IncrementViews(int keepId, Profile userInfo)
   {
 

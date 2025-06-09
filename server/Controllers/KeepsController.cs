@@ -15,7 +15,7 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
   private readonly KeepsService _keepsService;
   private readonly Auth0Provider _auth0Provider;
 
-  // NOTE Create keep request method. 🛠️ Gets user info for authentication and sets keepData.CreatorId = userInfo.Id to prevent users from creating a keep with another user's id.
+  // NOTE 🛠️ Create keep request method. Gets user info for authentication and sets keepData.CreatorId = userInfo.Id to prevent users from creating a keep with another user's id.
   [Authorize]
   [HttpPost]
   public async Task<ActionResult<Keep>> Create([FromBody] Keep keepData)
@@ -33,12 +33,23 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
     }
   }
 
-  public Task<ActionResult<string>> Delete(int keepId)
+  // NOTE 💣 Delete keep request path. Gets user info for authentication.
+  [Authorize]
+  [HttpDelete("{keepId}")]
+  public async Task<ActionResult<string>> Delete(int keepId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_keepsService.Delete(keepId, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
-  // NOTE Edit keep request path. Gets user info for authentication.
+  // NOTE 🧵 Edit keep request path. Gets user info for authentication.
   [Authorize]
   [HttpPut("{keepId}")]
   public async Task<ActionResult<Keep>> Edit([FromBody] Keep updateKeepData, int keepId)
@@ -54,7 +65,7 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
     }
   }
 
-  // NOTE GetAll keeps request method. 🧺 Gets all keeps from the database
+  // NOTE 🧺 GetAll keeps request method. Gets all keeps from the database
   [HttpGet]
   public ActionResult<List<Keep>> GetAll()
   {
@@ -68,7 +79,7 @@ public class KeepsController : ControllerBase, IKeepsController<Keep>
     }
   }
 
-  // NOTE GetById keep request method. 🔍 Gets a keep by its id (goes through _keepsService.IncrementViews())
+  // NOTE 🔍 GetById keep request method. Gets a keep by its id (goes through _keepsService.IncrementViews())
   [HttpGet("{keepId}")]
   public async Task<ActionResult<Keep>> GetById(int keepId)
   {

@@ -10,7 +10,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
   }
   private readonly IDbConnection _db;
 
-  // NOTE Creates new keep in database.
+  // NOTE 🛠️ Creates new keep in database.
   public Keep Create(Keep keepData)
   {
     string sql = @"
@@ -33,12 +33,20 @@ public class KeepsRepository : IKeepsRepository<Keep>
     return createdKeep;
   }
 
+  // NOTE 💣 Deletes keep from database.
   public void Delete(int keepId)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { keepId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} were deleted, which is very bad and means your code is bad and you should feel bad. -Dr. Johnathan Alfred Zoidberg.");
+    }
   }
 
-  // NOTE Edits keep in database.
+  // NOTE 🧵 Edits keep in database.
   public void Edit(Keep updateKeepData)
   {
     string sql = @"
@@ -56,7 +64,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     }
   }
 
-  // NOTE Gets all keeps from database.
+  // NOTE 🧺 Gets all keeps from database.
   public List<Keep> GetAll()
   {
     string sql = @"
@@ -74,7 +82,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     return keeps;
   }
 
-  // NOTE Gets keep by is from database.
+  // NOTE 🔍 Gets keep by is from database.
   public Keep GetById(int keepId)
   {
     string sql = @"
@@ -101,7 +109,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     throw new NotImplementedException();
   }
 
-  // NOTE Increments a keep's view count in database.
+  // NOTE ➕ Increments a keep's view count in database.
   public int IncrementViews(int keepId)
   {
     string sql = @"
