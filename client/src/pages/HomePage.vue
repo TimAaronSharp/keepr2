@@ -1,10 +1,28 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import KeepCard from '@/components/KeepCard.vue';
-import { computed } from 'vue';
+import { keepsService } from '@/services/KeepsService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed, onMounted } from 'vue';
 
 
 const keeps = computed(() => AppState.keeps)
+
+onMounted(() => {
+  getAllKeeps()
+})
+
+
+async function getAllKeeps() {
+  try {
+    await keepsService.getAll()
+  }
+  catch (error) {
+    Pop.error(error, "Could not get all keeps");
+    logger.error("Could not get all keeps".toUpperCase(), error)
+  }
+}
 
 </script>
 
