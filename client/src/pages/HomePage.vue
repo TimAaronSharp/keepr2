@@ -13,7 +13,7 @@ onMounted(() => {
   getAllKeeps()
 })
 
-
+// NOTE 🧺 Gets all keeps from server
 async function getAllKeeps() {
   try {
     await keepsService.getAll()
@@ -30,7 +30,7 @@ async function getAllKeeps() {
   <section class="container">
     <div class="row">
       <div class="col-12">
-        <div>
+        <div class="masonry-container mt-4">
           <div v-for="keep in keeps" :key="'keep ' + keep.id">
             <KeepCard :keepProp="keep" />
           </div>
