@@ -5,6 +5,11 @@ import { Keep } from "@/models/Keep.js";
 
 
 class KeepsService{
+  async deleteKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    // logger.log("deleteKeep returned ", res.data)
+    this.unMakeKeep(keepId)
+  }
   async getAll(){
     AppState.keeps  = []
     // logger.log("AppState.keeps starts as ", AppState.keeps)
@@ -14,7 +19,10 @@ class KeepsService{
     // logger.log("res.data.map has created ", allKeeps)
     AppState.keeps = allKeeps
     // logger.log("AppState.keeps is now ", AppState.keeps)
-    
+  }
+  unMakeKeep(keepId){
+    const keepIndex = AppState.keeps.findIndex(keep => keep.id == keepId)
+    AppState.keeps.splice(keepIndex, 1)
   }
 }
 
