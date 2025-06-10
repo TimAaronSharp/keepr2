@@ -12,9 +12,10 @@ const props = defineProps({
   keepProp: { type: Keep, required: true }
 })
 
+// NOTE 💣 Delete keep request to the server.
 async function deleteKeep() {
   try {
-    await keepsService.deleteKeep(props.keepProp.id)
+    await keepsService.delete(props.keepProp.id)
   }
   catch (error) {
     Pop.error(error, `Could not delete keep: ${props.keepProp.name}`);

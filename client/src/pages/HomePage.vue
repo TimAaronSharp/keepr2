@@ -4,16 +4,32 @@ import KeepCard from '@/components/KeepCard.vue';
 import { keepsService } from '@/services/KeepsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 
 const keeps = computed(() => AppState.keeps)
+
+const editableKeepData = ref({
+  name: "",
+  img: "",
+  description: ""
+})
 
 onMounted(() => {
   getAllKeeps()
 })
 
-// NOTE 🧺 Gets all keeps from server
+async function createKeep() {
+  try {
+    await keepsService.create(editableKeepData.value)
+  }
+  catch (error) {
+    Pop.error(error, "Could not create keep");
+    logger.error("Could not create keep".toUpperCase(), error)
+  }
+}
+
+// NOTE 🧺 Get all keeps request to the server
 async function getAllKeeps() {
   try {
     await keepsService.getAll()
@@ -27,6 +43,24 @@ async function getAllKeeps() {
 </script>
 
 <template>
+  <div>
+    <form @submit.prevent="createKeep()">
+      <div class="mb-3">
+        <label for="keepName" class="form-label"></label>
+        <input v-model="editableKeepData.name" id="keepName" type="text" placeholder="Name...">
+      </div>
+      <div class="mb-3">
+        <label for="keepImg" class="form-label"></label>
+        <input v-model="editableKeepData.img" id="keepImg" type="text" placeholder="Img URL...">
+      </div>
+      <div class="mb-3">
+        <label for="keepDescription" class="form-label"></label>
+        <textarea v-model="editableKeepData.description" id="keepDescription" type="text"
+          placeholder="Description..."></textarea>
+      </div>
+      <button type="submit">Create</button>
+    </form>
+  </div>
   <section class="container">
     <div class="row">
       <div class="col-12">

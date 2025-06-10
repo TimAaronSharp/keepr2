@@ -5,21 +5,37 @@ import { Keep } from "@/models/Keep.js";
 
 
 class KeepsService{
-  async deleteKeep(keepId) {
+  async create(keepData) {
+    const res = await api.post('api/keeps', keepData)
+    logger.log("create returned ", res.data)
+    this.makeKeeps(res.data)
+  }
+  // NOTE 💣 Delete keep request to the server.
+  async delete(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
-    // logger.log("deleteKeep returned ", res.data)
+    logger.log("delete returned ", res.data)
     this.unMakeKeep(keepId)
   }
+  // NOTE 🧺 Get all keeps request to the server
   async getAll(){
     AppState.keeps  = []
     // logger.log("AppState.keeps starts as ", AppState.keeps)
     const res = await api.get('api/keeps')
-    // logger.log("getAll returned ", res.data)
-    const allKeeps = res.data.map(pojo => new Keep(pojo))
+    this.makeKeeps(res.data)
+    logger.log("getAll returned ", res.data)
     // logger.log("res.data.map has created ", allKeeps)
-    AppState.keeps = allKeeps
     // logger.log("AppState.keeps is now ", AppState.keeps)
   }
+  // NOTE 🛠️ Constructs keeps from response data received from server.
+  makeKeeps(keeps){
+    if (Array.isArray(keeps)) {
+      const createdKeeps = keeps.map(pojo => new Keep(pojo))
+      return AppState.keeps = createdKeeps
+    }
+    const createdKeep = new Keep(keeps)
+    return AppState.keeps.push(createdKeep)
+  }
+  // NOTE ⛏️ Finds index of keep in AppState.keeps and responsively splices it out.
   unMakeKeep(keepId){
     const keepIndex = AppState.keeps.findIndex(keep => keep.id == keepId)
     AppState.keeps.splice(keepIndex, 1)
