@@ -27,3 +27,7 @@ main {
   display: inline-block;
   break-inside: avoid;
 }
+
+.text-shadow {
+  text-shadow: 1px 2px 4px var(--bs-dark);
+}

@@ -46,7 +46,8 @@ async function deleteKeep() {
           :title="`Delete button for keep: ${keepProp.name}, created by ${keepProp.creator.name}`"></button>
       </div>
     </div>
-    <button @click="getKeepById()">
+    <button @click="getKeepById()" class="text-shadow" data-bs-toggle="modal" data-bs-target="#keeps-modal"
+      :aria-label="`Button to select keep named ${keepProp.name}, created by ${keepProp.creator.name}`">
       <img class="img-fluid rounded w-100" :src="keepProp?.img"
         :alt="`A picture for the ${keepProp?.name} keep by ${keepProp.creator?.name}`"
         :title="`A picture for the keep titled ${keepProp.name} created by ${keepProp.creator.name}`">
@@ -57,11 +58,12 @@ async function deleteKeep() {
 
 <style lang="scss" scoped>
 .delete-button {
-  left: 91%;
+  left: 89%;
 }
 
 .transparent-btn-style * {
   background-color: transparent;
-  border: none;  color: red;
+  border: none;
+  color: red;
 }
 </style>
