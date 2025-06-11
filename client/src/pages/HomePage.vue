@@ -46,16 +46,16 @@ async function getAllKeeps() {
   <div>
     <form @submit.prevent="createKeep()">
       <div class="mb-3">
-        <label for="keepName" class="form-label"></label>
-        <input v-model="editableKeepData.name" id="keepName" type="text" placeholder="Name...">
+        <label for="keep-name" class="form-label"></label>
+        <input v-model="editableKeepData.name" id="keep-name" type="text" placeholder="Name...">
       </div>
       <div class="mb-3">
-        <label for="keepImg" class="form-label"></label>
-        <input v-model="editableKeepData.img" id="keepImg" type="text" placeholder="Img URL...">
+        <label for="keep-img" class="form-label"></label>
+        <input v-model="editableKeepData.img" id="keep-img" type="text" placeholder="Img URL...">
       </div>
       <div class="mb-3">
-        <label for="keepDescription" class="form-label"></label>
-        <textarea v-model="editableKeepData.description" id="keepDescription" type="text"
+        <label for="keep-description" class="form-label"></label>
+        <textarea v-model="editableKeepData.description" id="keep-description" type="text"
           placeholder="Description..."></textarea>
       </div>
       <button type="submit">Create</button>

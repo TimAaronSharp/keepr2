@@ -16,15 +16,24 @@ class KeepsService{
     logger.log("delete returned ", res.data)
     this.unMakeKeep(keepId)
   }
-  // NOTE 🧺 Get all keeps request to the server
+  // NOTE 🧺 Get all keeps request to the server.
   async getAll(){
     AppState.keeps  = []
     // logger.log("AppState.keeps starts as ", AppState.keeps)
     const res = await api.get('api/keeps')
     this.makeKeeps(res.data)
-    logger.log("getAll returned ", res.data)
+    // logger.log("getAll returned ", res.data)
     // logger.log("res.data.map has created ", allKeeps)
     // logger.log("AppState.keeps is now ", AppState.keeps)
+  }
+  // NOTE 🔍 Get keep by id request to the server.
+  async getById(keepId) {
+    AppState.activeKeep = null
+    // logger.log("AppState.keep starts as ", AppState.keep)
+    const res = await api(`api/keeps/${keepId}`)
+    // logger.log("getById returned ", res.data)
+    this.makeKeeps(res.data)
+    logger.log("AppState.keep is now ", AppState.activeKeep) 
   }
   // NOTE 🛠️ Constructs keeps from response data received from server.
   makeKeeps(keeps){
@@ -33,7 +42,7 @@ class KeepsService{
       return AppState.keeps = createdKeeps
     }
     const createdKeep = new Keep(keeps)
-    return AppState.keeps.push(createdKeep)
+    return AppState.activeKeep = createdKeep
   }
   // NOTE ⛏️ Finds index of keep in AppState.keeps and responsively splices it out.
   unMakeKeep(keepId){

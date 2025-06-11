@@ -12,6 +12,16 @@ const props = defineProps({
   keepProp: { type: Keep, required: true }
 })
 
+async function getKeepById() {
+  try {
+    await keepsService.getById(props.keepProp.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get keep ${props.keepProp.name}`);
+    logger.error(`Could not get keep ${props.keepProp.name}`.toUpperCase(), error)
+  }
+}
+
 // NOTE 💣 Delete keep request to the server.
 async function deleteKeep() {
   try {
@@ -28,7 +38,7 @@ async function deleteKeep() {
 
 
 <template>
-  <div class="my-2 position-relative fw-bold">
+  <div class="my-2 position-relative fw-bold transparent-btn-style">
     <div v-if="keepProp?.creatorId == account?.id">
       <div class="position-absolute delete-button fs-4">
         <button @click="deleteKeep()" class="mdi mdi-close-circle p-0"
@@ -36,9 +46,11 @@ async function deleteKeep() {
           :title="`Delete button for keep: ${keepProp.name}, created by ${keepProp.creator.name}`"></button>
       </div>
     </div>
-    <img class="img-fluid rounded w-100" :src="keepProp?.img"
-      :alt="`A picture for the ${keepProp?.name} keep by ${keepProp.creator?.name}`"
-      :title="`A picture for the keep titled ${keepProp.name} created by ${keepProp.creator.name}`">
+    <button @click="getKeepById()">
+      <img class="img-fluid rounded w-100" :src="keepProp?.img"
+        :alt="`A picture for the ${keepProp?.name} keep by ${keepProp.creator?.name}`"
+        :title="`A picture for the keep titled ${keepProp.name} created by ${keepProp.creator.name}`">
+    </button>
   </div>
 </template>
 
@@ -48,9 +60,8 @@ async function deleteKeep() {
   left: 91%;
 }
 
-.delete-button>* {
+.transparent-btn-style * {
   background-color: transparent;
-  border: none;
-  color: red;
+  border: none;  color: red;
 }
 </style>
