@@ -1,6 +1,6 @@
 namespace keepr2.Interfaces;
 
-public interface IVaultRepository<T>
+public interface IVaultsRepository<T>
 {
   public T Create(T vaultData);
   public T GetById(int vaultId);
