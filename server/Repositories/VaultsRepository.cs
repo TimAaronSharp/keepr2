@@ -9,7 +9,7 @@ public class VaultsRepository : IVaultsRepository<Vault>
     _db = db;
   }
   private readonly IDbConnection _db;
-
+  // NOTE 🛠️ Creates new vault in database.
   public Vault Create(Vault vaultData)
   {
     string sql = @"
@@ -30,7 +30,7 @@ public class VaultsRepository : IVaultsRepository<Vault>
       return vault;
     }, vaultData).SingleOrDefault();
   }
-
+  // NOTE 🔍 Gets vault by id from database.
   public Vault GetById(int vaultId)
   {
     string sql = @"
