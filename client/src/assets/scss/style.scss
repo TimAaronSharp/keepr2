@@ -18,3 +18,20 @@ main {
   justify-content: start;
   align-items: end;
 }
+
+.masonry-container {
+  columns: 300px;
+}
+
+.masonry-container>* {
+  display: inline-block;
+  break-inside: avoid;
+}
+
+.element-shadow {
+  box-shadow: 1px 2px 4px var(--bs-dark);
+}
+
+.text-shadow {
+  text-shadow: 1px 2px 4px var(--bs-dark);
+}

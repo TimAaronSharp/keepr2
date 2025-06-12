@@ -7,6 +7,6 @@ public interface IKeepsRepository<T>
   public T GetById(int keepId);
   public List<T> GetByProfileId(string profileId);
   public int IncrementViews(int keepId);
-  public T Edit(T updateKeepData);
+  public void Edit(T updateKeepData);
   public void Delete(int keepId);
 }
