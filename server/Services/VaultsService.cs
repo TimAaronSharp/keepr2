@@ -24,9 +24,27 @@ public class VaultsService : IVaultsService<Vault>
     throw new NotImplementedException();
   }
 
-  public Vault GetById(int vaultId, Profile userInfo)
+  private Vault GetById(int vaultId)
   {
-    throw new NotImplementedException();
+    Vault vault = _repo.GetById(vaultId);
+
+    if (vault == null)
+    {
+      throw new Exception($"Invalid vault id: {vault.Id}");
+    }
+    return vault;
+  }
+  // NOTE 🔐 Method to check if the user requesting the vault is the creator of the vault, and if the vault is private (only the vault creator can view a private vault).
+  public Vault IsPrivateCheck(int vaultId, Profile userInfo)
+  {
+    Vault vault = _repo.GetById(vaultId);
+
+    if (vault.IsPrivate == true && vault.CreatorId != userInfo?.Id)
+    {
+      throw new Exception($"Invalid vault id: {vault.Id} 😜");
+    }
+
+    return vault;
   }
 
   public List<Vault> GetByProfileId(string profileId, Profile userInfo)

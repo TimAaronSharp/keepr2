@@ -41,10 +41,19 @@ public class VaultsController : ControllerBase, IVaultsController<Vault, Keep>
   {
     throw new NotImplementedException();
   }
-
-  public Task<ActionResult<Vault>> GetById(int vaultId)
+  // NOTE 🔍 Get vault by id request method. User info is retrieved and passed to _vaultsService.IsPrivateCheck() to check if the user is the creator of the vault (only the vault creator can view a private vault).
+  [HttpGet("{vaultId}")]
+  public async Task<ActionResult<Vault>> GetById(int vaultId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_vaultsService.IsPrivateCheck(vaultId, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<List<Keep>>> GetKeepsByVaultId(int vaultId)

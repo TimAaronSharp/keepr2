@@ -33,7 +33,19 @@ public class VaultsRepository : IVaultsRepository<Vault>
 
   public Vault GetById(int vaultId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    vaults.*,
+    accounts.*
+    FROM vaults
+    INNER JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = @vaultId;";
+
+    return _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { vaultId }).SingleOrDefault();
   }
 
   public List<Vault> GetByProfileId(string profileId)
