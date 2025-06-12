@@ -12,7 +12,23 @@ public class VaultsRepository : IVaultsRepository<Vault>
 
   public Vault Create(Vault vaultData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO
+    vaults(name, description, img, is_private, creator_id)
+    VALUES(@Name, @Description, @Img, @IsPrivate, @CreatorId);
+    
+    SELECT
+    vaults.*,
+    accounts.*
+    FROM vaults
+    INNER JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = LAST_INSERT_ID();";
+
+    return _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, vaultData).SingleOrDefault();
   }
 
   public Vault GetById(int vaultId)

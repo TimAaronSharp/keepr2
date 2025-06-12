@@ -11,7 +11,7 @@ public class VaultsService : IVaultsService<Vault>
 
   public Vault Create(Vault vaultData)
   {
-    throw new NotImplementedException();
+    return _repo.Create(vaultData);
   }
 
   public string Delete(int vaultId, Profile userInfo)

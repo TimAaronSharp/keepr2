@@ -15,10 +15,21 @@ public class VaultsController : ControllerBase, IVaultsController<Vault, Keep>
   // NOTE 💉 Dependency injections.
   private readonly VaultsService _vaultsService;
   private readonly Auth0Provider _auth0Provider;
-
-  public Task<ActionResult<Vault>> Create([FromBody] Vault vaultData)
+  // NOTE 🛠️ Create vault request method. Gets user info for authentication and sets vaultData.CreatorId = userInfo.Id to prevent users from creating a vault with another user's id.
+  [Authorize]
+  [HttpPost]
+  public async Task<ActionResult<Vault>> Create([FromBody] Vault vaultData)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      vaultData.CreatorId = userInfo.Id;
+      return Ok(_vaultsService.Create(vaultData));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<string>> Delete(int vaultId)
