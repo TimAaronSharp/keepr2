@@ -16,6 +16,11 @@ class KeepsService{
     logger.log("delete returned ", res.data)
     this.unMakeKeep(keepId)
   }
+  async edit(updateKeepData) {
+    const res = await api.put(`api/keeps/${updateKeepData.id}`, updateKeepData)
+    logger.log("edit has returned ", res.data)
+    this.getAll()
+  }
   // NOTE 🧺 Get all keeps request to the server.
   async getAll(){
     AppState.keeps  = []

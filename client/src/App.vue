@@ -1,4 +1,5 @@
 <script setup>
+import EditKeepFormModal from './components/EditKeepFormModal.vue';
 import KeepModal from './components/KeepModal.vue';
 import Navbar from './components/Navbar.vue';
 import { RouterView } from 'vue-router';
@@ -16,6 +17,7 @@ import { RouterView } from 'vue-router';
     Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
   </footer>
   <KeepModal />
+  <EditKeepFormModal />
 </template>
 
 <style lang="scss"></style>
