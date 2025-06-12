@@ -51,8 +51,8 @@ async function deleteKeep() {
     </div>
     <button @click="getKeepById()" class="text-shadow" data-bs-toggle="modal" data-bs-target="#keeps-modal"
       :aria-label="`Button to select keep named ${keepProp?.name}`">
-      <img class="img-fluid rounded w-100" :src="keepProp?.img" :alt="`A picture for the ${keepProp?.name}`"
-        :title="`A picture for the keep titled ${keepProp?.name}`">
+      <img class="img-fluid rounded w-100 element-shadow" :src="keepProp?.img"
+        :alt="`A picture for the ${keepProp?.name}`" :title="`A picture for the keep titled ${keepProp?.name}`">
     </button>
   </div>
 </template>
