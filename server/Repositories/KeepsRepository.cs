@@ -82,7 +82,7 @@ public class KeepsRepository : IKeepsRepository<Keep>
     return keeps;
   }
 
-  // NOTE 🔍 Gets keep by is from database.
+  // NOTE 🔍 Gets keep by id from database.
   public Keep GetById(int keepId)
   {
     string sql = @"
