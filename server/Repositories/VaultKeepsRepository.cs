@@ -23,15 +23,24 @@ public class VaultKeepsRepository : IVaultKeepsRepository<VaultKeep, VaultKeepTr
 
     return _db.Query<VaultKeep>(sql, vaultKeepData).SingleOrDefault();
   }
-
+  // NOTE 💣 Deletes vaultKeep from database.
   public void Delete(int vaultKeepId)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM vault_keeps WHERE id = @vaultKeepId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { vaultKeepId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} vaultKeeps were deleted, which means your code is bad and you should feel bad. -Dr. Johnathan Alfred Zoidberg.");
+    }
   }
 
   public VaultKeep GetById(int vaultKeepId)
   {
-    throw new NotImplementedException();
+    string sql = "SELECT * FROM vault_keeps WHERE id = @vaultKeepId;";
+
+    return _db.Query<VaultKeep>(sql, new { vaultKeepId }).SingleOrDefault();
   }
 
   public List<VaultKeepTracker> GetByVaultId(int vaultId)

@@ -25,9 +25,29 @@ public class VaultKeepsService : IVaultKeepsService<VaultKeep, VaultKeepTracker>
     return _repo.Create(vaultKeepData);
   }
 
+  // NOTE 💣 Delete vaultKeep method. Gets vaultKeep by id, verifies user is the vaultKeep creator (if not throws exception), and sends vaultKeepId to repo for deletion from database.
   public string Delete(int vaultKeepId, Profile userInfo)
   {
-    throw new NotImplementedException();
+    VaultKeep vaultKeep = GetById(vaultKeepId);
+
+    if (vaultKeep.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot delete another user's vaultKeep, {userInfo.Name}".ToUpper());
+    }
+
+    _repo.Delete(vaultKeep.Id);
+    return $"VaultKeep id: {vaultKeep.Id} has been deleted. You monster";
+  }
+
+  private VaultKeep GetById(int vaultKeepId)
+  {
+    VaultKeep vaultKeep = _repo.GetById(vaultKeepId);
+
+    if (vaultKeep == null)
+    {
+      throw new Exception($"Invalid vaultKeep id: {vaultKeepId}");
+    }
+    return vaultKeep;
   }
 
   public List<VaultKeepTracker> GetByVaultId(int vaultId, Profile userInfo)
