@@ -49,8 +49,11 @@ public class ProfilesController : ControllerBase, IProfilesController<Profile, K
     }
   }
 
-  public Task<ActionResult<List<Vault>>> GetVaultsByProfileId(string profileId)
+  // NOTE 🔍🏦📄 Get vaults by profile id method request path.
+  [HttpGet("{profileId}/vaults")]
+  public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+    return Ok(_vaultsService.GetByProfileId(profileId, userInfo));
   }
 }

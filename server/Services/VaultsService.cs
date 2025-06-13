@@ -3,11 +3,13 @@ namespace keepr2.Services;
 
 public class VaultsService : IVaultsService<Vault>
 {
-  public VaultsService(VaultsRepository repo)
+  public VaultsService(VaultsRepository repo, ProfilesService profilesService)
   {
     _repo = repo;
+    _profilesService = profilesService;
   }
   private readonly VaultsRepository _repo;
+  private readonly ProfilesService _profilesService;
 
   // NOTE 🛠️ Create vault method. Passes the vaultData to repo for creation in database.
   public Vault Create(Vault vaultData)
@@ -71,9 +73,18 @@ public class VaultsService : IVaultsService<Vault>
 
     return vault;
   }
-
+  // NOTE 🔍🖼️📄 Get keeps by profile id method. Gets profile from _profilesService.GetById() first to check that the profile actually exists through checks in that method.
   public List<Vault> GetByProfileId(string profileId, Profile userInfo)
   {
-    throw new NotImplementedException();
+    Profile profile = _profilesService.GetById(profileId);
+
+    List<Vault> vaults = _repo.GetByProfileId(profile.Id);
+
+    if (profile.Id == userInfo?.Id)
+    {
+      return vaults;
+    }
+
+    return vaults.FindAll(vault => vault.IsPrivate == false);
   }
 }
