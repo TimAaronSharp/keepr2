@@ -31,9 +31,17 @@ public class VaultsRepository : IVaultsRepository<Vault>
     }, vaultData).SingleOrDefault();
   }
 
+  // NOTE 💣 Deletes vault from database.
   public void Delete(int vaultId)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM vaults where id = @vaultId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { vaultId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} vaults were deleted, which is very bad and means your code is bad and you should feel bad. -Dr. Johnathan Alfred Zoidberg.");
+    }
   }
 
   // NOTE 🧵 Edits vault in database.

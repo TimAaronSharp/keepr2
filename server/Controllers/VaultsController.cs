@@ -34,9 +34,20 @@ public class VaultsController : ControllerBase, IVaultsController<Vault, Keep>
     }
   }
 
-  public Task<ActionResult<string>> Delete(int vaultId)
+  // NOTE 💣 Delete vault request method. Gets user info for authentication.
+  [Authorize]
+  [HttpDelete("{vaultId}")]
+  public async Task<ActionResult<string>> Delete(int vaultId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_vaultsService.Delete(vaultId, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   // NOTE 🧵 Edit vault request method. Gets user info for authentication.

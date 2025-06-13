@@ -15,9 +15,18 @@ public class VaultsService : IVaultsService<Vault>
     return _repo.Create(vaultData);
   }
 
+  // NOTE 💣 Delete vault method. Gets vault by id, verifies user is the vault creator (if not throws exception), and sends vaultId to repo for deletion from database.
   public string Delete(int vaultId, Profile userInfo)
   {
-    throw new NotImplementedException();
+    Vault vault = GetById(vaultId);
+
+    if (vault.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot delete another user's vault, {userInfo.Name}".ToUpper());
+    }
+
+    _repo.Delete(vaultId);
+    return $"{vault.Name} has been deleted. You monster.";
   }
 
   // NOTE 🧵 Edit vault method. Updates vault with new updateVaultData, and sends the updated vault to repo. Performs verification that the user is the vault creator.
