@@ -1,7 +1,7 @@
 
 namespace keepr2.Services;
 
-public class VaultKeepsService : IVaultKeepsService<VaultKeep, Vault>
+public class VaultKeepsService : IVaultKeepsService<VaultKeep, VaultKeepTracker>
 {
 
   public VaultKeepsService(VaultKeepsRepository repo, VaultsService vaultsService)
@@ -30,8 +30,9 @@ public class VaultKeepsService : IVaultKeepsService<VaultKeep, Vault>
     throw new NotImplementedException();
   }
 
-  public List<Vault> GetByVaultId(int vaultId, Profile userInfo)
+  public List<VaultKeepTracker> GetByVaultId(int vaultId, Profile userInfo)
   {
-    throw new NotImplementedException();
+    Vault vault = _vaultsService.IsPrivateCheck(vaultId, userInfo);
+    return _repo.GetByVaultId(vault.Id);
   }
 }

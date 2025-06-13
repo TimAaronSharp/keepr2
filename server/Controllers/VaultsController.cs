@@ -4,18 +4,20 @@ namespace keepr2.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 
-public class VaultsController : ControllerBase, IVaultsController<Vault, Keep>
+public class VaultsController : ControllerBase, IVaultsController<Vault, VaultKeepTracker>
 {
   // NOTE 🏗️ Class constructor.
-  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider)
+  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider, VaultKeepsService vaultKeepsService)
   {
     _vaultsService = vaultsService;
     _auth0Provider = auth0Provider;
+    _vaultKeepsService = vaultKeepsService;
   }
 
   // NOTE 💉 Dependency injections.
   private readonly VaultsService _vaultsService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly VaultKeepsService _vaultKeepsService;
 
   // NOTE 🛠️ Create vault request method. Gets user info for authentication and sets vaultData.CreatorId = userInfo.Id to prevent users from creating a vault with another user's id.
   [Authorize]
@@ -80,10 +82,19 @@ public class VaultsController : ControllerBase, IVaultsController<Vault, Keep>
       return BadRequest(exception.Message);
     }
   }
-
-  public Task<ActionResult<List<Keep>>> GetKeepsByVaultId(int vaultId)
+  // NOTE 🔍🔐 Get keeps by vault id (vaultKeeps) request method. Gets user info to check if they are the creator of a vault if it is private.
+  [HttpGet("{vaultId}/keeps")]
+  public async Task<ActionResult<List<VaultKeepTracker>>> GetKeepsByVaultId(int vaultId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      return Ok(_vaultKeepsService.GetByVaultId(vaultId, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   // NOTE Attempted to use this as a reusable method to get user info through Auth0Provider instead of needing to write the code in each method that needs user info (granted it's not much more code to write in each method, but I like making reusable code as much as possible and want to see if that can be done in a controller). Will investigate whether it is possible later to 

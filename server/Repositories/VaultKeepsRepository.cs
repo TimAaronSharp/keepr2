@@ -1,7 +1,7 @@
 
 namespace keepr2.Repositories;
 
-public class VaultKeepsRepository : IVaultKeepsRepository<VaultKeep, Vault>
+public class VaultKeepsRepository : IVaultKeepsRepository<VaultKeep, VaultKeepTracker>
 {
 
 
@@ -34,8 +34,26 @@ public class VaultKeepsRepository : IVaultKeepsRepository<VaultKeep, Vault>
     throw new NotImplementedException();
   }
 
-  public List<Vault> GetByVaultId(int vaultId)
+  public List<VaultKeepTracker> GetByVaultId(int vaultId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    vault_keeps.*,
+    keeps.*,
+    accounts.*,
+    keep_count.*
+    FROM vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN accounts ON accounts.id = keeps.creator_id
+    INNER JOIN keep_count ON keep_count.id = keeps.id
+    WHERE vault_keeps.vault_id = @vaultId;";
+
+    return _db.Query(sql, (VaultKeep vaultKeep, VaultKeepTracker vaultKeepTracker, Profile account, Keep keep) =>
+    {
+      vaultKeepTracker.VaultKeepId = vaultKeep.Id;
+      vaultKeepTracker.Creator = account;
+      vaultKeepTracker.Kept = keep.Kept;
+      return vaultKeepTracker;
+    }, new { vaultId }).ToList();
   }
 }
