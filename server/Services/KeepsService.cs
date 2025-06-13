@@ -3,11 +3,13 @@ namespace keepr2.Services;
 
 public class KeepsService : IKeepsService<Keep>
 {
-  public KeepsService(KeepsRepository repo)
+  public KeepsService(KeepsRepository repo, ProfilesService profilesService)
   {
     _repo = repo;
+    _profilesService = profilesService;
   }
   private readonly KeepsRepository _repo;
+  private readonly ProfilesService _profilesService;
 
   // NOTE 🛠️ Passes the keepData to repo for creation in database.
   public Keep Create(Keep keepData)
@@ -65,9 +67,12 @@ public class KeepsService : IKeepsService<Keep>
     return keep;
   }
 
+  // NOTE 🔍🖼️📄 Get keeps by profile id.
   public List<Keep> GetByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    Profile profile = _profilesService.GetById(profileId);
+
+    return _repo.GetByProfileId(profile.Id);
   }
 
   // NOTE ➕ Increments the keep's view count. If user is the keep creator it returns the keep as is so that the creator can't artificially inflate view count. (Of course they could still do this while logged out).

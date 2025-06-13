@@ -21,7 +21,7 @@ public class ProfilesController : ControllerBase, IProfilesController<Profile, K
   private readonly KeepsService _keepsService;
   private readonly VaultsService _vaultsService;
 
-  // NOTE 🔍📄 Get profile by id request method.
+  // NOTE 🔍📄 Get profile by id method request path.
   [HttpGet("{profileId}")]
   public ActionResult<Profile> GetById(string profileId)
   {
@@ -35,9 +35,18 @@ public class ProfilesController : ControllerBase, IProfilesController<Profile, K
     }
   }
 
+  // NOTE 🔍🖼️📄 Get keeps by profile id method request path.
+  [HttpGet("{profileId}/keeps")]
   public ActionResult<List<Keep>> GetKeepsByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      return Ok(_keepsService.GetByProfileId(profileId));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<List<Vault>>> GetVaultsByProfileId(string profileId)
