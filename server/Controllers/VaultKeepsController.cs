@@ -15,9 +15,21 @@ public class VaultKeepsController : ControllerBase, IVaultKeepsController<VaultK
   private readonly VaultKeepsService _vaultKeepsService;
   private readonly Auth0Provider _auth0Provider;
 
-  public Task<ActionResult<VaultKeep>> Create([FromBody] VaultKeep vaultKeepData)
+  // NOTE 🛠️ Create vaultKeep request method. Gets user info for authentication and sets vaultKeepData.CreatorId = userInfo.Id to prevent users from creating a vaultKeep with another user's id.
+  [Authorize]
+  [HttpPost]
+  public async Task<ActionResult<VaultKeep>> Create([FromBody] VaultKeep vaultKeepData)
   {
-    throw new NotImplementedException();
+    try
+    {
+      Profile userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      vaultKeepData.CreatorId = userInfo.Id;
+      return Ok(_vaultKeepsService.Create(vaultKeepData, userInfo));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public Task<ActionResult<string>> Delete(int vaultKeepId)

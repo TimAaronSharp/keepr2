@@ -11,9 +11,17 @@ public class VaultKeepsRepository : IVaultKeepsRepository<VaultKeep, Vault>
   }
   private readonly IDbConnection _db;
 
+  // NOTE 🛠️ Creates vaultKeep in database.
   public VaultKeep Create(VaultKeep vaultKeepData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO
+    vault_keeps(keep_id, vault_id, creator_id)
+    VALUES(@KeepId, @VaultId, @CreatorId);
+
+    SELECT * FROM vault_keeps WHERE id = LAST_INSERT_ID();";
+
+    return _db.Query<VaultKeep>(sql, vaultKeepData).SingleOrDefault();
   }
 
   public void Delete(int vaultKeepId)

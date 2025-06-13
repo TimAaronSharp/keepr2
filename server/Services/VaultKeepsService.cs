@@ -12,9 +12,17 @@ public class VaultKeepsService : IVaultKeepsService<VaultKeep, Vault>
   private readonly VaultKeepsRepository _repo;
   private readonly VaultsService _vaultsService;
 
+  // NOTE 🛠️ Create vaultKeep method. Passes the vaultKeepData to repo for creation in database.
   public VaultKeep Create(VaultKeep vaultKeepData, Profile userInfo)
   {
-    throw new NotImplementedException();
+    Vault vault = _vaultsService.IsPrivateCheck(vaultKeepData.VaultId, userInfo);
+
+    if (vault.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot save a keep to another user's vault, {userInfo.Name}".ToUpper());
+    }
+
+    return _repo.Create(vaultKeepData);
   }
 
   public string Delete(int vaultKeepId, Profile userInfo)
