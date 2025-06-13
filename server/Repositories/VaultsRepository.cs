@@ -82,8 +82,21 @@ public class VaultsRepository : IVaultsRepository<Vault>
     }, new { vaultId }).SingleOrDefault();
   }
 
+  // NOTE 🔍🖼️📄 Gets vaults by profile id from database.
   public List<Vault> GetByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    vaults.*,
+    accounts.*
+    FROM vaults
+    INNER JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.creator_id = @profileId;";
+
+    return _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { profileId }).ToList();
   }
 }

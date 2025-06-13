@@ -104,9 +104,22 @@ public class KeepsRepository : IKeepsRepository<Keep>
     return foundKeep;
   }
 
+  // NOTE 🔍🖼️📄 Get keeps by profile id from database.
   public List<Keep> GetByProfileId(string profileId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    keeps.*,
+    accounts.*
+    FROM keeps
+    INNER JOIN accounts ON accounts.id = keeps.creator_id
+    WHERE keeps.creator_id = @profileId;";
+
+    return _db.Query(sql, (Keep keep, Profile account) =>
+    {
+      keep.Creator = account;
+      return keep;
+    }, new { profileId }).ToList();
   }
 
   // NOTE ➕ Increments a keep's view count in database.
