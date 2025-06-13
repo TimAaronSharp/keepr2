@@ -30,6 +30,32 @@ public class VaultsRepository : IVaultsRepository<Vault>
       return vault;
     }, vaultData).SingleOrDefault();
   }
+
+  public void Delete(int vaultId)
+  {
+    throw new NotImplementedException();
+  }
+
+  // NOTE 🧵 Edits vault in database.
+  public void Edit(Vault updateVaultData)
+  {
+    string sql = @"
+    UPDATE vaults
+    SET
+    name = @Name,
+    description = @Description,
+    img = @Img,
+    is_private = @IsPrivate
+    WHERE id = @id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, updateVaultData);
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} vaults were edited, which is very bad and means your code is bad and you should feel bad. -Dr. Johnathan Alfred Zoidberg");
+    }
+  }
+
   // NOTE 🔍 Gets vault by id from database.
   public Vault GetById(int vaultId)
   {
@@ -49,16 +75,6 @@ public class VaultsRepository : IVaultsRepository<Vault>
   }
 
   public List<Vault> GetByProfileId(string profileId)
-  {
-    throw new NotImplementedException();
-  }
-
-  public Vault Edit(Vault updateVaultData)
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Delete(int vaultId)
   {
     throw new NotImplementedException();
   }
