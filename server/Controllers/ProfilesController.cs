@@ -21,9 +21,18 @@ public class ProfilesController : ControllerBase, IProfilesController<Profile, K
   private readonly KeepsService _keepsService;
   private readonly VaultsService _vaultsService;
 
+  // NOTE 🔍📄 Get profile by id request method.
+  [HttpGet("{profileId}")]
   public ActionResult<Profile> GetById(string profileId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      return Ok(_profilesService.GetById(profileId));
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
   }
 
   public ActionResult<List<Keep>> GetKeepsByProfileId(string profileId)
