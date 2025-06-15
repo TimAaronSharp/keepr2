@@ -54,6 +54,20 @@ async function deleteKeep() {
       <img class="img-fluid rounded w-100 element-shadow" :src="keepProp?.img"
         :alt="`A picture for the ${keepProp?.name}`" :title="`A picture for the keep titled ${keepProp?.name}`">
     </button>
+    <div class="row w-100 position-absolute absolute-bottom text-shadow">
+      <div class="col-12 px-0">
+        <div class="d-flex modal-margin-left px-2 pb-2 justify-content-between align-items-end w-100">
+          <button @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
+            :title="`Keep titled: ${keepProp?.name} created by ${keepProp?.creator.name}.`"> {{ keepProp?.name
+            }}</button>
+          <RouterLink v-if="keepProp" :to="{ name: 'Profile Page', params: { profileId: keepProp?.creatorId } }">
+            <img class="profile-thumbnail" :src="keepProp?.creator?.picture"
+              :alt="`${keepProp?.creator?.name}'s profile picture.'`"
+              :title="`${keepProp?.creator?.name}'s profile picture.'`">
+          </RouterLink>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -67,5 +81,22 @@ async function deleteKeep() {
   background-color: transparent;
   border: none;
   color: red;
+}
+
+.absolute-bottom {
+  bottom: 0;
+}
+
+.position-right {
+  right: 0;
+}
+
+.modal-margin-left {
+  margin-left: 12px;
+}
+
+.edit-button {
+  left: 0;
+  margin-left: 5px;
 }
 </style>
