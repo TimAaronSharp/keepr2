@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import KeepCard from '@/components/KeepCard.vue';
 import { accountService } from '@/services/AccountService.js';
+import { profilesService } from '@/services/ProfilesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -14,18 +15,18 @@ const keeps = computed(() => AppState.keeps)
 const route = useRoute()
 
 onMounted(() => {
-
+  getProfile()
 })
 
-// async function getProfile(){
-//   try {
-//     await 
-//   }
-//   catch (error){
-//     Pop.error(error, `Could not get profile ${route.params.profileId}`);
-//     logger.error(`Could not get profile ${route.params.profileId}`.toUpperCase(), error)
-//   }
-// }
+async function getProfile() {
+  try {
+    await profilesService.getProfile(route.params.profileId)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get profile ${route.params.profileId}`);
+    logger.error(`Could not get profile ${route.params.profileId}`.toUpperCase(), error)
+  }
+}
 
 async function editToggle() {
 
