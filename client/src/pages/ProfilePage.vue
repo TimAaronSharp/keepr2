@@ -29,7 +29,8 @@ async function getProfile() {
 }
 
 async function editToggle() {
-
+  document.getElementById('toggle-edit-account').classList.toggle('edit-toggle')
+  document.getElementById('border-edit-account').classList.toggle('edit-border')
 }
 
 </script>
@@ -55,7 +56,7 @@ async function editToggle() {
             <p class="mt-4 fs-1-fw-bold-mb-0">{{ profile?.name }}</p>
             <p class="fs-5">{{ vaults?.length }} Vaults | {{ keeps?.length }} Keeps</p>
           </div>
-          <div v-if="account?.id == profile?.id">
+          <div v-if="account?.id == profile?.id" class="transparent-btn-style">
             <div class="position-absolute position-absolute-edit">
               <button @click="editToggle()" class="mdi mdi-dots-horizontal fs-1"></button>
             </div>
@@ -87,4 +88,46 @@ async function editToggle() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.cover-img {
+  height: 50dvh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-img {
+  height: 20dvh;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.position-absolute-picture {
+  top: 360px;
+}
+
+.position-absolute-edit {
+  top: 460px;
+  right: 20px;
+}
+
+.position-absolute-edit-option {
+  top: 520px;
+  right: 0;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+.content-margin-top {
+  margin-top: 25dvh;
+}
+
+.edit-border {
+  border: 2px solid black;
+  background-color: #ded6e9;
+}
+
+.edit-toggle {
+  display: none;
+  overflow: hidden;
+}
+</style>
