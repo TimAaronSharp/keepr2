@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import KeepCard from '@/components/KeepCard.vue';
 import { accountService } from '@/services/AccountService.js';
+import { keepsService } from '@/services/KeepsService.js';
 import { profilesService } from '@/services/ProfilesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -21,10 +22,21 @@ onMounted(() => {
 async function getProfile() {
   try {
     await profilesService.getProfile(route.params.profileId)
+    getKeepsByProfileId()
   }
   catch (error) {
     Pop.error(error, `Could not get profile ${route.params.profileId}`);
     logger.error(`Could not get profile ${route.params.profileId}`.toUpperCase(), error)
+  }
+}
+
+async function getKeepsByProfileId() {
+  try {
+    await keepsService.getByProfileId(route.params.profileId)
+  }
+  catch (error) {
+    Pop.error(error, "Could not get keeps by profile id");
+    logger.error("Could not get keeps by profile id", error)
   }
 }
 

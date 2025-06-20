@@ -40,6 +40,15 @@ class KeepsService{
     this.makeKeeps(res.data)
     logger.log("AppState.keep is now ", AppState.activeKeep) 
   }
+  // NOTE 🔍📄 Get keeps by profile id request to the server.
+  async getByProfileId(profileId) {
+    AppState.keeps = []
+    // logger.log("AppState.keeps starts as ", AppState.keeps) 
+    const res = await api.get(`api/profiles/${profileId}/keeps`)
+    // logger.log("getByProfileId returned ", res.data)
+    this.makeKeeps(res.data)
+    
+  }
   // NOTE 🛠️ Constructs keeps from response data received from server.
   makeKeeps(keeps){
     if (Array.isArray(keeps)) {
