@@ -65,7 +65,7 @@ async function getAllKeeps() {
     <div class="row">
       <div class="col-12">
         <div class="masonry-container mt-4">
-          <div v-for="keep in keeps" :key="'keep ' + keep.id">
+          <div class="w-100" v-for="keep in keeps" :key="'keep ' + keep.id">
             <KeepCard :keepProp="keep" />
           </div>
         </div>
