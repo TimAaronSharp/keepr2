@@ -85,9 +85,4 @@ async function deleteKeep() {
 .modal-margin-left {
   margin-left: 12px;
 }
-
-.edit-button {
-  left: 0;
-  margin-left: 5px;
-}
 </style>
