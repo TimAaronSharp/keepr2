@@ -38,6 +38,7 @@ const props = defineProps({
           <button class="ms-3 fs-2">{{ vaultProp?.name }}</button>
         </div>
       </div>
+      <!-- NOTE Add a blurred glass background to title and creator buttons to see if that makes them easier to see in all cases (ie same color back ground as text/buttons) -->
     </RouterLink>
   </div>
 </template>
