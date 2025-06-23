@@ -70,24 +70,11 @@ async function deleteKeep() {
 
 
 <style lang="scss" scoped>
-.creator-buttons-pos {
-  left: 77%;
-}
-
-.absolute-bottom {
-  bottom: 0;
-}
-
 .position-right {
   right: 0;
 }
 
 .modal-margin-left {
   margin-left: 12px;
-}
-
-.edit-button {
-  left: 0;
-  margin-left: 5px;
 }
 </style>

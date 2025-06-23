@@ -1,9 +1,11 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import KeepCard from '@/components/KeepCard.vue';
+import VaultCard from '@/components/VaultCard.vue';
 import { accountService } from '@/services/AccountService.js';
 import { keepsService } from '@/services/KeepsService.js';
 import { profilesService } from '@/services/ProfilesService.js';
+import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -23,6 +25,7 @@ async function getProfile() {
   try {
     await profilesService.getProfile(route.params.profileId)
     getKeepsByProfileId()
+    getVaultsByProfileId()
   }
   catch (error) {
     Pop.error(error, `Could not get profile ${route.params.profileId}`);
@@ -37,6 +40,16 @@ async function getKeepsByProfileId() {
   catch (error) {
     Pop.error(error, "Could not get keeps by profile id");
     logger.error("Could not get keeps by profile id", error)
+  }
+}
+
+async function getVaultsByProfileId() {
+  try {
+    await vaultsService.getByProfileId(profile.value.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get vaults by profile id ${profile.value.id}`);
+    logger.error(`Could not get vaults by profile id ${profile.value.id}`.toUpperCase(), error)
   }
 }
 
@@ -83,7 +96,7 @@ async function editToggle() {
     <div class="row content-margin-top">
       <p class="fs-1 fw-bold">Vaults</p>
       <div class="col-6 col-md-3" v-for="vault in vaults" :key="'vault ' + vault?.id">
-        <!-- NOTE Put vaults here -->
+        <VaultCard :vaultProp="vault" />
       </div>
     </div>
     <div class="row">
