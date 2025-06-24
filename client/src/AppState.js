@@ -15,6 +15,8 @@ export const AppState = reactive({
   /** @type {import('./models/Vault.js').Vault[]} user info from the database*/
   vaults:[],
   /** @type {import('./models/Vault.js').Vault} user info from the database*/
-  activeVault: null
+  activeVault: null,
+  /** @type {import('./models/VaultKeepTracker.js').VaultKeepTracker[]} user info from the database*/
+  vaultKeepTrackers: []
 })
 
