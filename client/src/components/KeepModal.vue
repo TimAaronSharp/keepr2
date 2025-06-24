@@ -64,7 +64,7 @@ async function saveKeepToVault() {
                         <option v-for="vault in vaults" :key="`vault option ` + vault.id" :value="vault.id">{{
                           vault.name }}</option>
                       </select>
-                      <button type="submit" class="btn save-button text-light fw-bold ms-3 pt-0 px-2 pb-1">save</button>
+                      <button type="submit" class="btn save-button fw-bold ms-3 pt-0 px-2 pb-1">Save</button>
                     </form>
                   </div>
                   <RouterLink v-if="keep" :to="{ name: 'Profile Page', params: { profileId: keep?.creatorId } }">
@@ -83,4 +83,8 @@ async function saveKeepToVault() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.save-button {
+  outline: 1px solid black;
+}
+</style>

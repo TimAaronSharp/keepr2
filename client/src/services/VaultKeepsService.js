@@ -1,7 +1,11 @@
+import { logger } from "@/utils/Logger.js"
+import { api } from "./AxiosService.js"
 
 class VaultKeepsService{
-  create(vaultKeepData) {
-    throw new Error('Method not implemented.');
+  // NOTE 🛠️ Create vaultKeep method.
+  async create(vaultKeepData) {
+    const res = await api.post('api/vaultKeeps', vaultKeepData)
+    logger.log("VaultKeepsService.create returned ", res.data)
   }
 
 }
