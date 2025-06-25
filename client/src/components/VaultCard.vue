@@ -30,7 +30,7 @@ async function deleteVault() {
 
 
 <template>
-  <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style">
+  <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style element-shadow rounded">
     <div v-if="account?.id == vaultProp.creatorId" class="creator-buttons fs-4 d-flex">
       <div class="position-absolute lock-icon-pos">
         <span v-if="vaultProp.isPrivate" class="mdi mdi-lock fs-4"
@@ -47,8 +47,9 @@ async function deleteVault() {
     </div>
     <RouterLink :to="{ name: 'Vault Page', params: { vaultId: vaultProp?.id } }">
       <div>
+        <!-- NOTE Investigate solutions for ensuring the img fills the div like the test images do (in the final you ended up giving the imgs specific px sizes and that ended up working, even seeming to resize properly, but it would be good to contact Jeremy/Mick/Jake to see if I'm forgetting how some things with bootstrap work (why the sizing with the test images seems to work differently compared to the big landscape img I used, imgs don't seem to fill to the top/bottom of the card, etc.))-->
         <img :src="vaultProp?.img" :alt="`A picture for vault: ${vaultProp?.name}`"
-          :title="`A picture for vault: ${vaultProp?.name}`" class="img-fluid rounded">
+          :title="`A picture for vault: ${vaultProp?.name}`" class="img-fluid rounded img-pos">
         <div class="position-absolute absolute-bottom">
           <button class="ms-3 fs-2">{{ vaultProp?.name }}</button>
         </div>
@@ -63,5 +64,10 @@ async function deleteVault() {
 .lock-icon-pos {
   left: 0;
   margin-left: 5px;
+}
+
+.img-pos {
+  object-fit: cover;
+  // min-height: 100%;
 }
 </style>
