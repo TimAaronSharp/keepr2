@@ -95,7 +95,7 @@ async function editToggle() {
     </div>
     <div class="row content-margin-top">
       <p class="fs-1 fw-bold">Vaults</p>
-      <div class="col-6 col-md-3" v-for="vault in vaults" :key="'vault ' + vault?.id">
+      <div class="col-6 col-md-3 outline-style" v-for="vault in vaults" :key="'vault ' + vault?.id">
         <VaultCard :vaultProp="vault" />
       </div>
     </div>
