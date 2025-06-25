@@ -1,6 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { Vault } from '@/models/Vault.js';
+import { vaultsService } from '@/services/VaultsService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 
@@ -10,7 +13,18 @@ const props = defineProps({
   vaultProp: { type: Vault, required: true }
 })
 
+async function deleteVault() {
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to permanently delete vault: ${props.vaultProp.name}?`, "This action is permanent", "Yes, Delete", "No, Don't Delete")
+    if (!confirmed) return
 
+    await vaultsService.delete(props.vaultProp.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not delete vault: ${props.vaultProp.name}, id: ${props.vaultProp.id}`);
+    logger.error(`Could not delete vault: ${props.vaultProp.name}, id: ${props.vaultProp.id}`.toUpperCase(), error)
+  }
+}
 
 </script>
 
@@ -26,7 +40,8 @@ const props = defineProps({
       <div class="position-absolute creator-buttons-pos d-flex">
         <button class="mdi mdi-pencil text-light" data-bs-toggle="modal" data-bs-target="#edit-vault-modal"
           :aria-label="`Edit button for vault: ${vaultProp?.name}`"></button>
-        <button class="mdi mdi-close-circle text-red" :aria-label="`Delete button for vault: ${vaultProp?.name}`"
+        <button @click="deleteVault()" class="mdi mdi-close-circle text-red"
+          :aria-label="`Delete button for vault: ${vaultProp?.name}`"
           :title="`Delete button for vault: ${vaultProp?.name}`"></button>
       </div>
     </div>
