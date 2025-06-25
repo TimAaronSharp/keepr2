@@ -67,6 +67,9 @@ function editToggle() {
         </div>
       </div>
     </div>
+    <div class="text-center my-4 fw-bold text-shadow text-light">
+      <span class="remove-keep-border rounded p-1">{{ vault?.description }}</span>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="masonry-container mt-4">
