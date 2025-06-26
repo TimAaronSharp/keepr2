@@ -30,23 +30,7 @@ async function deleteVault() {
 
 
 <template>
-<<<<<<< main
   <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style element-shadow rounded">
-    <div v-if="account?.id == vaultProp.creatorId" class="creator-buttons fs-4 d-flex">
-      <div class="position-absolute lock-icon-pos">
-        <span v-if="vaultProp.isPrivate" class="mdi mdi-lock fs-4"
-          :aria-label="`Vault: ${vaultProp?.name} is set to private. Only you can see and access it.`"
-          :title="`Vault: ${vaultProp?.name} is set to private. Only you can see and access it.`"></span>
-      </div>
-      <div class="position-absolute creator-buttons-pos d-flex">
-        <button class="mdi mdi-pencil text-light" data-bs-toggle="modal" data-bs-target="#edit-vault-modal"
-          :aria-label="`Edit button for vault: ${vaultProp?.name}`"></button>
-        <button @click="deleteVault()" class="mdi mdi-close-circle text-red"
-          :aria-label="`Delete button for vault: ${vaultProp?.name}`"
-          :title="`Delete button for vault: ${vaultProp?.name}`"></button>
-      </div>
-=======
-  <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style">
     <div v-if="account?.id == vaultProp.creatorId" class="position-absolute justify-content-between fs-4 d-flex w-100">
       <div v-if="vaultProp.isPrivate" class="d-flex lock-icon-pos">
         <span class="mdi mdi-lock fs-4"
@@ -55,10 +39,9 @@ async function deleteVault() {
       </div>
       <button class="mdi mdi-pencil text-light p-0 edit-button" data-bs-toggle="modal"
         data-bs-target="#edit-vault-modal" :aria-label="`Edit button for vault: ${vaultProp?.name}`"></button>
-      <button class="mdi mdi-close-circle text-red p-0 delete-button"
+      <button @click="deleteVault()" class="mdi mdi-close-circle text-red p-0 delete-button"
         :aria-label="`Delete button for vault: ${vaultProp?.name}`"
         :title="`Delete button for vault: ${vaultProp?.name}`"></button>
->>>>>>> feature/client/vaultKeeps
     </div>
     <RouterLink :to="{ name: 'Vault Page', params: { vaultId: vaultProp?.id } }">
       <div>
@@ -81,11 +64,11 @@ async function deleteVault() {
   margin-left: 5px;
 }
 
-<<<<<<< main
 .img-pos {
   object-fit: cover;
   // min-height: 100%;
-=======
+}
+
 .creator-buttons {
   left: 0;
   top: 0;
@@ -98,6 +81,5 @@ async function deleteVault() {
 
 .delete-button {
   margin-right: 5px;
->>>>>>> feature/client/vaultKeeps
 }
 </style>
