@@ -1,5 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import KeepCard from '@/components/KeepCard.vue';
+import { vaultKeepsService } from '@/services/VaultKeepsService.js';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -9,10 +11,12 @@ import { useRoute, useRouter } from 'vue-router';
 
 const account = computed(() => AppState.account)
 const vault = computed(() => AppState.activeVault)
+const vaultKeepTrackers = computed(() => AppState.vaultKeepTrackers)
 const route = useRoute()
 const router = useRouter()
 
 onMounted(() => {
+  getVaultKeepTrackersByVaultId()
   getVault()
 })
 
@@ -24,6 +28,16 @@ async function getVault() {
     Pop.error(error, `Could not get vault: ${route.params.vaultId}`);
     logger.error(`Could not get vault: ${route.params.vaultId}`.toUpperCase(), error)
     router.push({ name: 'Home' })
+  }
+}
+
+async function getVaultKeepTrackersByVaultId(vaultId) {
+  try {
+    await vaultKeepsService.getVaultKeepTrackersByVaultId(route.params.vaultId)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`);
+    logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`.toUpperCase(), error)
   }
 }
 
@@ -63,7 +77,7 @@ function editToggle() {
         </div>
         <div class="text-center">
           <!-- NOTE Will need vaultKeepTrackers to display how many keeps are in the vault (vaultKeepTrackers.length) -->
-          <span class="lil-bg p-2 fw-bold"> Keeps</span>
+          <span class="lil-bg p-2 fw-bold">{{ vaultKeepTrackers.length }} Keeps</span>
         </div>
       </div>
     </div>
@@ -73,7 +87,9 @@ function editToggle() {
     <div class="row">
       <div class="col-12">
         <div class="masonry-container mt-4">
-          <!-- NOTE KeepCards displayed here after vaultKeepTrackers are available. -->
+          <div v-for="vaultKeepTracker in vaultKeepTrackers" :key="'vaultKeepTracker ' + vaultKeepTracker.id">
+            <KeepCard :keep-prop="vaultKeepTracker" />
+          </div>
         </div>
       </div>
     </div>
