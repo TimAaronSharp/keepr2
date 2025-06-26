@@ -8,8 +8,13 @@ class VaultKeepsService{
   async create(vaultKeepData) {
     const res = await api.post('api/vaultKeeps', vaultKeepData)
     // logger.log("VaultKeepsService.create returned ", res.data)
-    this.make(res.data)
-    logger.log("VaultKeepsService.make() created ", AppState.vaultKeepTrackers)
+    logger.log("VaultKeepsService.makeVaultKeepTrackers() created ", AppState.vaultKeepTrackers)
+  }
+
+  async delete(vaultKeepId) {
+    const res = await api.delete(`api/vaultKeeps/${vaultKeepId}`)
+    logger.log("VaultKeepsService.delete() returned ", res.data)
+    this.unMakeVaultKeepTracker(vaultKeepId)
   }
 
   // NOTE 🧺🔍 Get vaultKeepTrackers by vault id method.
@@ -17,13 +22,18 @@ class VaultKeepsService{
     AppState.vaultKeepTrackers = []
     const res = await api.get(`api/vaults/${vaultId}/keeps`)
     // logger.log("VaultKeepsService.getVaultKeepTrackersByVaultId returned ", res.data)
-    this.make(res.data)
-    logger.log("VaultKeepsService.make() created ", AppState.vaultKeepTrackers)
+    this.makeVaultKeepTrackers(res.data)
+    logger.log("VaultKeepsService.makeVaultKeepTrackers() created ", AppState.vaultKeepTrackers)
   }
 
   // NOTE ⚒️ Make new vaultKeepTracker class objects with res.data from server.
-  async make(vaultKeepTrackers){
+  makeVaultKeepTrackers(vaultKeepTrackers){
       return AppState.vaultKeepTrackers = vaultKeepTrackers.map(pojo => new VaultKeepTracker(pojo))
+  }
+
+  unMakeVaultKeepTracker(vaultKeepId){
+    const vaultKeepTrackerIndex = AppState.vaultKeepTrackers.findIndex(vaultKeepTracker => vaultKeepTracker.vaultKeepId == vaultKeepId)
+    AppState.vaultKeepTrackers.splice(vaultKeepTrackerIndex, 1)
   }
 }
 
