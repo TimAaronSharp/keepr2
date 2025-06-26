@@ -1,5 +1,6 @@
 <script setup>
 import EditKeepFormModal from './components/EditKeepFormModal.vue';
+import EditVaultFormModal from './components/EditVaultFormModal.vue';
 import KeepModal from './components/KeepModal.vue';
 import Navbar from './components/Navbar.vue';
 import { RouterView } from 'vue-router';
@@ -18,6 +19,7 @@ import { RouterView } from 'vue-router';
   </footer>
   <KeepModal />
   <EditKeepFormModal />
+  <EditVaultFormModal />
 </template>
 
 <style lang="scss"></style>
