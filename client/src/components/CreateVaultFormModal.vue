@@ -37,7 +37,7 @@ async function createVault() {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="d-flex justify-content-between">
-          <h1 class="modal-title fs-2 my-4 ms-4" id="create-vault-backdrop-label">Add you vault</h1>
+          <h1 class="modal-title fs-2 my-4 ms-4" id="create-vault-backdrop-label">Add your vault</h1>
           <button type="button" class="btn-close mt-3 me-3 close-button" data-bs-dismiss="modal"
             aria-label="Close"></button>
         </div>
