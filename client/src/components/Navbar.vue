@@ -38,6 +38,8 @@ watch(theme, () => {
           </li>
         </ul>
         <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+          data-bs-target="#create-keep-modal">Create Keep</button>
+        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
           data-bs-target="#create-vault-modal">Create Vault</button>
         <!-- LOGIN COMPONENT HERE -->
         <div class="ms-auto">
