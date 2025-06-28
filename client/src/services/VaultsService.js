@@ -4,7 +4,7 @@ import { logger } from "@/utils/Logger.js"
 import { Vault } from "@/models/Vault.js"
 
 class VaultsService{
-  
+    
   // NOTE 🛠️ Create (post) vault request to server.
   async create(vaultData){
     const res = await api.post('api/vaults', vaultData)
@@ -17,6 +17,12 @@ class VaultsService{
     const res = await api.delete(`api/vaults/${vaultId}`)
     logger.log("VaultsService.delete() returned ", res.data)
     this.unMake(vaultId)
+  }
+
+  async edit(editedVaultData, vaultId) {
+    const res = await api.put(`api/vaults/${vaultId}`, editedVaultData)
+    logger.log("VaultsService.edit() returned ", res.data)
+    this.make(res.data)
   }
   
   // NOTE 🔍 Get by id (get) vault request to server.

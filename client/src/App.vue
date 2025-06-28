@@ -1,5 +1,7 @@
 <script setup>
+import CreateVaultFormModal from './components/CreateVaultFormModal.vue';
 import EditKeepFormModal from './components/EditKeepFormModal.vue';
+import EditVaultFormModal from './components/EditVaultFormModal.vue';
 import KeepModal from './components/KeepModal.vue';
 import Navbar from './components/Navbar.vue';
 import { RouterView } from 'vue-router';
@@ -16,8 +18,10 @@ import { RouterView } from 'vue-router';
   <footer class=" text-center">
     Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
   </footer>
-  <KeepModal />
+  <CreateVaultFormModal />
   <EditKeepFormModal />
+  <EditVaultFormModal />
+  <KeepModal />
 </template>
 
 <style lang="scss"></style>
