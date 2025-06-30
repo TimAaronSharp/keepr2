@@ -7,6 +7,7 @@ class AccountService {
   async edit(editedAccountData) {
     const res = await api.put('/account', editedAccountData)
     logger.log("AccountService.edit returned ", res.data)
+    this.getAccount()
   }
   async getAccount() {
     try {

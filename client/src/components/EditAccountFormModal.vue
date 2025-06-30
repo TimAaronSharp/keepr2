@@ -24,7 +24,7 @@ watch(account, () => {
 
 async function editAccount() {
   try {
-    const confirmed = Pop.confirm("Are you sure you want to save these changes to your account?")
+    const confirmed = await Pop.confirm("Are you sure you want to save these changes to your account?")
     if (!confirmed) return
 
     await accountService.edit(editableAccountData.value)

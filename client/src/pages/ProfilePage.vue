@@ -8,7 +8,7 @@ import { profilesService } from '@/services/ProfilesService.js';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const account = computed(() => AppState.account)
@@ -20,6 +20,12 @@ const route = useRoute()
 onMounted(() => {
   getProfile()
 })
+
+watch(account, () => {
+  getProfile()
+})
+
+
 
 async function getProfile() {
   try {
@@ -83,10 +89,10 @@ async function editToggle() {
           </div>
           <div v-if="account?.id == profile?.id" class="transparent-btn-style">
             <div class="position-absolute position-absolute-edit">
-              <button @click="editToggle()" class="mdi mdi-dots-horizontal fs-1"></button>
+              <button @click="editToggle()" type="button" class="mdi mdi-dots-horizontal fs-1"></button>
             </div>
             <div class="position-absolute position-absolute-edit-option" id="border-edit-account">
-              <button class="edit-toggle fw-bold" id="toggle-edit-account" data-bs-toggle="modal"
+              <button class="edit-toggle fw-bold" type="button" id="toggle-edit-account" data-bs-toggle="modal"
                 data-bs-target="#edit-account-modal">Edit Profile</button>
             </div>
           </div>
