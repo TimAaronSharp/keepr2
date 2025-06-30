@@ -21,9 +21,9 @@ onMounted(() => {
   getProfile()
 })
 
-watch(account, () => {
-  getProfile()
-})
+// watch(account, () => {
+//   getProfile()
+// })
 
 
 
