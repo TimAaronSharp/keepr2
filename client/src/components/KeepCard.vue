@@ -39,11 +39,12 @@ async function getKeepById() {
 
 async function getVaultsByProfileId() {
   try {
-    await vaultsService.getByProfileId(account.value.id)
+    if (!account.value) return
+    await vaultsService.getByProfileId(account.value?.id)
   }
   catch (error) {
-    Pop.error(error, `Could not get vaults by profile id ${account.value.id}`);
-    logger.error(`Could not get vaults by profile id ${account.value.id}`.toUpperCase(), error)
+    Pop.error(error, `Could not get vaults by profile id ${account.value?.id}`);
+    logger.error(`Could not get vaults by profile id ${account.value?.id}`.toUpperCase(), error)
   }
 }
 
