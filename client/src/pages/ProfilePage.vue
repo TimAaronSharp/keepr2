@@ -76,7 +76,7 @@ async function editToggle() {
             <img v-if="profile?.coverImg" class="img-fluid rounded w-100 cover-img element-shadow"
               :src="profile?.coverImg" :alt="`Cover image for ${profile?.name}'s profile page.'`"
               :title="`Cover image for ${profile?.name}'s profile page.'`">
-            <img v-else
+            <img v-else class="img-fluid rounded w-100 cover-img element-shadow"
               src="https://images.pexels.com/photos/268941/pexels-photo-268941.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
               :alt="`Default cover image for ${profile?.name}'s profile page.'`"
               :title="`Default cover image for ${profile?.name}'s profile page.'`">
