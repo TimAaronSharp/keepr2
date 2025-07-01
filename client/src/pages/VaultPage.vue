@@ -31,7 +31,7 @@ async function getVault() {
   }
 }
 
-async function getVaultKeepTrackersByVaultId(vaultId) {
+async function getVaultKeepTrackersByVaultId() {
   try {
     await vaultKeepsService.getVaultKeepTrackersByVaultId(route.params.vaultId)
   }
@@ -39,11 +39,6 @@ async function getVaultKeepTrackersByVaultId(vaultId) {
     Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`);
     logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`.toUpperCase(), error)
   }
-}
-
-function editToggle() {
-  document.getElementById('toggle-remove-keep').classList.toggle('remove-keep-toggle')
-  document.getElementById('toggle-remove-keep').classList.toggle('remove-keep-border')
 }
 
 </script>
@@ -67,10 +62,9 @@ function editToggle() {
               </div>
             </div>
             <div v-if="account?.id == vault?.creatorId">
-              <div class="position-absolute position-absolute-delete">
-                <button @click="editToggle()" class="mdi mdi-dots-horizontal fs-1"
-                  aria-label="Toggle button for selecting keeps to remove from vault"></button>
-                <!-- NOTE Form for removing keep -->
+              <div class="position-absolute position-absolute-delete transparent-btn-style">
+                <button class="mdi mdi-pencil fs-1" data-bs-toggle="modal" data-bs-target="#edit-vault-modal"
+                  :aria-label="`Button to edit vault: ${vault?.name} id: ${vault?.id}`"></button>
               </div>
             </div>
           </div>

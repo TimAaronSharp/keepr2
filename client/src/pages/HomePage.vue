@@ -10,49 +10,9 @@ import { computed, onMounted, ref } from 'vue';
 
 const keeps = computed(() => AppState.keeps)
 
-const editableKeepData = ref({
-  name: "",
-  img: "",
-  description: ""
-})
-
-const editableVaultData = ref({
-  name: "",
-  img: "",
-  description: "",
-  isPrivate: false
-})
-
 onMounted(() => {
   getAllKeeps()
 })
-
-async function createKeep() {
-  try {
-    await keepsService.create(editableKeepData.value)
-  }
-  catch (error) {
-    Pop.error(error, "Could not create keep");
-    logger.error("Could not create keep".toUpperCase(), error)
-  }
-}
-
-async function createVault() {
-  try {
-    debugger
-    await vaultsService.create(editableVaultData.value)
-    editableVaultData.value = {
-      name: "",
-      img: "",
-      description: "",
-      isPrivate: false
-    }
-  }
-  catch (error) {
-    Pop.error(error, "Could not create vault");
-    logger.error("Could not create vault".toUpperCase(), error)
-  }
-}
 
 // NOTE 🧺 Get all keeps request to the server
 async function getAllKeeps() {
@@ -68,55 +28,6 @@ async function getAllKeeps() {
 </script>
 
 <template>
-  <div>
-    <form @submit.prevent="createKeep()">
-      <div class="mb-3">
-        <label for="keep-name" class="form-label"></label>
-        <input v-model="editableKeepData.name" id="keep-name" type="text" placeholder="Name...">
-      </div>
-      <div class="mb-3">
-        <label for="keep-img" class="form-label"></label>
-        <input v-model="editableKeepData.img" id="keep-img" type="text" placeholder="Img URL...">
-      </div>
-      <div class="mb-3">
-        <label for="keep-description" class="form-label"></label>
-        <textarea v-model="editableKeepData.description" id="keep-description" type="text"
-          placeholder="Description..."></textarea>
-      </div>
-      <button type="submit">Create</button>
-    </form>
-  </div>
-  <div>
-    <form @submit.prevent="createVault()">
-      <div class="mb-3">
-        <label for="vault-name" class="form-label"></label>
-        <input v-model="editableVaultData.name" id="vault-name" type="text" placeholder="Name...">
-      </div>
-      <div class="mb-3">
-        <label for="vault-img" class="form-label"></label>
-        <input v-model="editableVaultData.img" id="vault-img" type="url" placeholder="Img URL...">
-      </div>
-      <div class="mb-3">
-        <label for="vault-description" class="form-label"></label>
-        <textarea v-model="editableVaultData.description" id="vault-description" type="text"
-          placeholder="Description..."></textarea>
-      </div>
-      <div class="d-flex flex-column align-items-end mb-3">
-        <div>
-          <label>Private vaults can only be seen by you</label>
-        </div>
-        <div class="d-flex align-items-center">
-          <input v-model="editableVaultData.isPrivate" type="checkbox" class="form-check-input"
-            id="is-private-checkbox">
-          <label class="form-check-label fs-5 ms-1" for="is-private-checkbox">Make vault private?</label>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary text-light fw-bold create-button" data-bs-dismiss="modal"
-          aria-label="Create Vault">Create Vault</button>
-      </div>
-    </form>
-  </div>
   <section class="container">
     <div class="row">
       <div class="col-12">
