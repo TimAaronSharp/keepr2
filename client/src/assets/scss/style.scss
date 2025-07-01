@@ -21,6 +21,10 @@ main {
 
 .masonry-container {
   columns: 300px;
+
+  @media screen AND (max-width: 767.98px) {
+    columns: 200px;
+  }
 }
 
 .masonry-container>* {

@@ -67,7 +67,8 @@ async function saveKeepToVault() {
                       <button type="submit" class="btn save-button fw-bold ms-3 pt-0 px-2 pb-1">Save</button>
                     </form>
                   </div>
-                  <RouterLink v-if="keep" :to="{ name: 'Profile Page', params: { profileId: keep?.creatorId } }">
+                  <RouterLink v-if="keep" :to="{ name: 'Profile Page', params: { profileId: keep?.creatorId } }"
+                    class="profile-thumbnail-pos">
                     <img data-bs-dismiss="modal" class="profile-thumbnail" :src="keep?.creator.picture"
                       :alt="`Picture of ${keep?.creator.name}, creator of this keep`"
                       :title="`Picture of ${keep?.creator.name}, creator of this keep`">
@@ -86,5 +87,9 @@ async function saveKeepToVault() {
 <style lang="scss" scoped>
 .save-button {
   outline: 1px solid black;
+}
+
+.profile-thumbnail-pos {
+  margin-left: auto;
 }
 </style>
