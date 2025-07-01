@@ -9,6 +9,7 @@ import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
+const vault = computed(() => AppState.activeVault)
 
 const props = defineProps({
   keepProp: { type: Keep, required: true }
@@ -65,7 +66,7 @@ async function removeKeep() {
 <!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
   <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
-    <button v-if="keepProp?.vaultKeepId" @click="removeKeep()"
+    <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
       class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light modal-margin-left"
       :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
     <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex creator-buttons-pos fs-4">
