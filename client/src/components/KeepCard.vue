@@ -2,25 +2,18 @@
 import { AppState } from '@/AppState.js';
 import { Keep } from '@/models/Keep.js';
 import { keepsService } from '@/services/KeepsService.js';
+import { vaultKeepsService } from '@/services/VaultKeepsService.js';
+import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
+const vault = computed(() => AppState.activeVault)
 
 const props = defineProps({
   keepProp: { type: Keep, required: true }
 })
-
-async function getKeepById() {
-  try {
-    await keepsService.getById(props.keepProp?.id)
-  }
-  catch (error) {
-    Pop.error(error, `Could not get keep ${props.keepProp?.name}`);
-    logger.error(`Could not get keep ${props.keepProp?.name}`.toUpperCase(), error)
-  }
-}
 
 // NOTE 💣 Delete keep request to the server.
 async function deleteKeep() {
@@ -34,11 +27,48 @@ async function deleteKeep() {
     logger.error(`Could not delete keep: ${props.keepProp?.name}`.toUpperCase(), error)
   }
 }
+
+async function getKeepById() {
+  try {
+    await keepsService.getById(props.keepProp?.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get keep ${props.keepProp?.name}`);
+    logger.error(`Could not get keep ${props.keepProp?.name}`.toUpperCase(), error)
+  }
+}
+
+async function getVaultsByProfileId() {
+  try {
+    if (!account.value) return
+    await vaultsService.getByProfileId(account.value?.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get vaults by profile id ${account.value?.id}`);
+    logger.error(`Could not get vaults by profile id ${account.value?.id}`.toUpperCase(), error)
+  }
+}
+
+async function removeKeep() {
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to remove keep: ${props.keepProp.name} from this vault?`, 'This will only remove this entry from this vault and will not delete it from the database.', 'Yes, Remove', "No, Don't Remove")
+    if (!confirmed) return
+    // @ts-ignore
+    await vaultKeepsService.delete(props.keepProp.vaultKeepId)
+  }
+  catch (error) {
+    Pop.error(error, `Could not remove keep: ${props.keepProp.name} from vault.`);
+    logger.error(`Could not remove keep: ${props.keepProp.name} from vault.`.toUpperCase(), error)
+  }
+}
 </script>
 
-
+<!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
-  <div class="my-2 position-relative fw-bold transparent-btn-style">
+  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
+    <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
+      class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light modal-margin-left"
+      :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
     <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex creator-buttons-pos fs-4">
       <button @click="getKeepById()" class="mdi mdi-pencil text-light" data-bs-toggle="modal"
         data-bs-target="#edit-keep-modal" :aria-label="`Edit button for keep named ${keepProp?.name}`"></button>
@@ -70,24 +100,11 @@ async function deleteKeep() {
 
 
 <style lang="scss" scoped>
-.creator-buttons-pos {
-  left: 77%;
-}
-
-.absolute-bottom {
-  bottom: 0;
-}
-
 .position-right {
   right: 0;
 }
 
 .modal-margin-left {
   margin-left: 12px;
-}
-
-.edit-button {
-  left: 0;
-  margin-left: 5px;
 }
 </style>

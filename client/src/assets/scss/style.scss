@@ -21,6 +21,10 @@ main {
 
 .masonry-container {
   columns: 300px;
+
+  @media screen AND (max-width: 767.98px) {
+    columns: 200px;
+  }
 }
 
 .masonry-container>* {
@@ -45,4 +49,20 @@ main {
 .transparent-btn-style * {
   background-color: transparent;
   border: none;
+}
+
+.creator-buttons-pos {
+  left: 77%;
+}
+
+.absolute-bottom {
+  bottom: 0;
+}
+
+.outline-style {
+  outline: 1px solid black;
+}
+
+.create-button {
+  background-color: #2d2d2d;
 }

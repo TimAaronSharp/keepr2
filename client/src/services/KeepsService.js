@@ -7,18 +7,18 @@ import { Keep } from "@/models/Keep.js";
 class KeepsService{
   async create(keepData) {
     const res = await api.post('api/keeps', keepData)
-    logger.log("create returned ", res.data)
+    // logger.log("create returned ", res.data)
     this.makeKeeps(res.data)
   }
   // NOTE 💣 Delete keep request to the server.
   async delete(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
-    logger.log("delete returned ", res.data)
+    // logger.log("delete returned ", res.data)
     this.unMakeKeep(keepId)
   }
   async edit(updateKeepData) {
     const res = await api.put(`api/keeps/${updateKeepData.id}`, updateKeepData)
-    logger.log("edit has returned ", res.data)
+    // logger.log("edit has returned ", res.data)
     this.getAll()
   }
   // NOTE 🧺 Get all keeps request to the server.
@@ -38,7 +38,7 @@ class KeepsService{
     const res = await api(`api/keeps/${keepId}`)
     // logger.log("getById returned ", res.data)
     this.makeKeeps(res.data)
-    logger.log("AppState.keep is now ", AppState.activeKeep) 
+    // logger.log("AppState.keep is now ", AppState.activeKeep) 
   }
   // NOTE 🔍📄 Get keeps by profile id request to the server.
   async getByProfileId(profileId) {
