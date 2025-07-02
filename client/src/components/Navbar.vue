@@ -39,6 +39,7 @@ watch(theme, () => {
             </RouterLink>
           </li>
         </ul>
+        <!-- NOTE Figure out how to make modals work with select list. -->
         <div v-if="account">
           <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
             data-bs-target="#create-keep-modal">Create Keep</button>

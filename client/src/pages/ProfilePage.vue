@@ -9,21 +9,22 @@ import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const account = computed(() => AppState.account)
 const profile = computed(() => AppState.profile)
 const vaults = computed(() => AppState.vaults)
 const keeps = computed(() => AppState.keeps)
 const route = useRoute()
+const router = useRouter()
 
 onMounted(() => {
   getProfile()
 })
 
-// watch(account, () => {
-//   getProfile()
-// })
+watch(route, () => {
+  getProfile()
+})
 
 
 
@@ -36,6 +37,7 @@ async function getProfile() {
   catch (error) {
     Pop.error(error, `Could not get profile ${route.params.profileId}`);
     logger.error(`Could not get profile ${route.params.profileId}`.toUpperCase(), error)
+    router.push({ name: 'Home' })
   }
 }
 
