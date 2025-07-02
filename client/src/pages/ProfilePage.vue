@@ -8,18 +8,25 @@ import { profilesService } from '@/services/ProfilesService.js';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const account = computed(() => AppState.account)
 const profile = computed(() => AppState.profile)
 const vaults = computed(() => AppState.vaults)
 const keeps = computed(() => AppState.keeps)
 const route = useRoute()
+const router = useRouter()
 
 onMounted(() => {
   getProfile()
 })
+
+watch(route, () => {
+  getProfile()
+})
+
+
 
 async function getProfile() {
   try {
@@ -30,6 +37,7 @@ async function getProfile() {
   catch (error) {
     Pop.error(error, `Could not get profile ${route.params.profileId}`);
     logger.error(`Could not get profile ${route.params.profileId}`.toUpperCase(), error)
+    router.push({ name: 'Home' })
   }
 }
 
@@ -70,7 +78,7 @@ async function editToggle() {
             <img v-if="profile?.coverImg" class="img-fluid rounded w-100 cover-img element-shadow"
               :src="profile?.coverImg" :alt="`Cover image for ${profile?.name}'s profile page.'`"
               :title="`Cover image for ${profile?.name}'s profile page.'`">
-            <img v-else
+            <img v-else class="img-fluid rounded w-100 cover-img element-shadow"
               src="https://images.pexels.com/photos/268941/pexels-photo-268941.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
               :alt="`Default cover image for ${profile?.name}'s profile page.'`"
               :title="`Default cover image for ${profile?.name}'s profile page.'`">
@@ -83,10 +91,10 @@ async function editToggle() {
           </div>
           <div v-if="account?.id == profile?.id" class="transparent-btn-style">
             <div class="position-absolute position-absolute-edit">
-              <button @click="editToggle()" class="mdi mdi-dots-horizontal fs-1"></button>
+              <button @click="editToggle()" type="button" class="mdi mdi-dots-horizontal fs-1"></button>
             </div>
             <div class="position-absolute position-absolute-edit-option" id="border-edit-account">
-              <button class="edit-toggle fw-bold" id="toggle-edit-account" data-bs-toggle="modal"
+              <button class="edit-toggle fw-bold" type="button" id="toggle-edit-account" data-bs-toggle="modal"
                 data-bs-target="#edit-account-modal">Edit Profile</button>
             </div>
           </div>

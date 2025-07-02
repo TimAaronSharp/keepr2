@@ -3,25 +3,17 @@ import { AppState } from '@/AppState.js';
 import { Keep } from '@/models/Keep.js';
 import { keepsService } from '@/services/KeepsService.js';
 import { vaultKeepsService } from '@/services/VaultKeepsService.js';
+import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
+const vault = computed(() => AppState.activeVault)
 
 const props = defineProps({
   keepProp: { type: Keep, required: true }
 })
-
-async function getKeepById() {
-  try {
-    await keepsService.getById(props.keepProp?.id)
-  }
-  catch (error) {
-    Pop.error(error, `Could not get keep ${props.keepProp?.name}`);
-    logger.error(`Could not get keep ${props.keepProp?.name}`.toUpperCase(), error)
-  }
-}
 
 // NOTE 💣 Delete keep request to the server.
 async function deleteKeep() {
@@ -33,6 +25,27 @@ async function deleteKeep() {
   catch (error) {
     Pop.error(error, `Could not delete keep: ${props.keepProp?.name}`);
     logger.error(`Could not delete keep: ${props.keepProp?.name}`.toUpperCase(), error)
+  }
+}
+
+async function getKeepById() {
+  try {
+    await keepsService.getById(props.keepProp?.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get keep ${props.keepProp?.name}`);
+    logger.error(`Could not get keep ${props.keepProp?.name}`.toUpperCase(), error)
+  }
+}
+
+async function getVaultsByProfileId() {
+  try {
+    if (!account.value) return
+    await vaultsService.getByProfileId(account.value?.id)
+  }
+  catch (error) {
+    Pop.error(error, `Could not get vaults by profile id ${account.value?.id}`);
+    logger.error(`Could not get vaults by profile id ${account.value?.id}`.toUpperCase(), error)
   }
 }
 
@@ -52,8 +65,8 @@ async function removeKeep() {
 
 <!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
-  <div class="my-2 position-relative fw-bold transparent-btn-style">
-    <button v-if="keepProp?.vaultKeepId" @click="removeKeep()"
+  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
+    <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
       class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light modal-margin-left"
       :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
     <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex creator-buttons-pos fs-4">
