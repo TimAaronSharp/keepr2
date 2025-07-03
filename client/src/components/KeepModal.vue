@@ -37,9 +37,9 @@ async function saveKeepToVault() {
   <!-- Modal -->
   <div class="modal fade" id="keeps-modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="keep-modal-label"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-md-down modal-dialog-centered">
       <div class="modal-content">
-        <div class="container">
+        <div class="modal-body container-fluid">
           <div class="row">
             <div class="col-12 col-md-6 p-0">
               <img class="img-fluid w-100 modal-img modal-img-corners" :src="keep?.img"
@@ -91,5 +91,11 @@ async function saveKeepToVault() {
 
 .profile-thumbnail-pos {
   margin-left: auto;
+}
+
+.modal-body {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 0px;
 }
 </style>
