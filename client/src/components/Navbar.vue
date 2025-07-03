@@ -1,9 +1,11 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from '@/AppState.js';
 
 const theme = ref(loadState('theme') || 'light')
+const account = computed(() => AppState.account)
 
 function toggleTheme() {
   theme.value = theme.value == 'light' ? 'dark' : 'light'
@@ -37,8 +39,13 @@ watch(theme, () => {
             </RouterLink>
           </li>
         </ul>
-        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
-          data-bs-target="#create-vault-modal">Create Vault</button>
+        <!-- NOTE Figure out how to make modals work with select list. -->
+        <div v-if="account">
+          <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+            data-bs-target="#create-keep-modal">Create Keep</button>
+          <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+            data-bs-target="#create-vault-modal">Create Vault</button>
+        </div>
         <!-- LOGIN COMPONENT HERE -->
         <div class="ms-auto">
           <button class="btn text-light" @click="toggleTheme"

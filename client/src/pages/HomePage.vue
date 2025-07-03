@@ -10,32 +10,9 @@ import { computed, onMounted, ref } from 'vue';
 
 const keeps = computed(() => AppState.keeps)
 
-const editableKeepData = ref({
-  name: "",
-  img: "",
-  description: ""
-})
-
-const editableVaultData = ref({
-  name: "",
-  img: "",
-  description: "",
-  isPrivate: false
-})
-
 onMounted(() => {
   getAllKeeps()
 })
-
-async function createKeep() {
-  try {
-    await keepsService.create(editableKeepData.value)
-  }
-  catch (error) {
-    Pop.error(error, "Could not create keep");
-    logger.error("Could not create keep".toUpperCase(), error)
-  }
-}
 
 // NOTE 🧺 Get all keeps request to the server
 async function getAllKeeps() {
@@ -51,25 +28,6 @@ async function getAllKeeps() {
 </script>
 
 <template>
-  <div>
-    <form @submit.prevent="createKeep()">
-      <div class="mb-3">
-        <label for="keep-name" class="form-label"></label>
-        <input v-model="editableKeepData.name" id="keep-name" type="text" placeholder="Name...">
-      </div>
-      <div class="mb-3">
-        <label for="keep-img" class="form-label"></label>
-        <input v-model="editableKeepData.img" id="keep-img" type="text" placeholder="Img URL...">
-      </div>
-      <div class="mb-3">
-        <label for="keep-description" class="form-label"></label>
-        <textarea v-model="editableKeepData.description" id="keep-description" type="text"
-          placeholder="Description..."></textarea>
-      </div>
-      <button type="submit">Create</button>
-    </form>
-  </div>
-
   <section class="container">
     <div class="row">
       <div class="col-12">
