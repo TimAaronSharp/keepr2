@@ -66,7 +66,7 @@ async function deleteVault() {
 
 .img-pos {
   object-fit: cover;
-  // min-height: 100%;
+  aspect-ratio: 1.25/1;
 }
 
 .creator-buttons {
