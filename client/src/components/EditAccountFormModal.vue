@@ -9,9 +9,9 @@ import { computed, ref, watch } from 'vue';
 const account = computed(() => AppState.account)
 
 const editableAccountData = ref({
-  name: "",
-  picture: "",
-  coverImg: ""
+  name: account.value?.name,
+  picture: account.value?.picture,
+  coverImg: account.value?.coverImg
 })
 
 watch(account, () => {
@@ -51,16 +51,18 @@ async function editAccount() {
         <div class="modal-body">
           <form @submit.prevent="editAccount()">
             <div class="mb-3">
-              <label for="edit-account-name" class="form-label"></label>
-              <input v-model="editableAccountData.name" type="text" id="edit-account-name" maxlength="30" required>
+              <label for="edit-account-name" class="form-label fw-bold">Account Name</label>
+              <input v-model="editableAccountData.name" type="text" class="w-100" id="edit-account-name" maxlength="30"
+                required>
             </div>
             <div class="mb-3">
-              <label for="edit-account-picture" class="form-label"></label>
-              <input v-model="editableAccountData.picture" type="url" id="edit-account-picture" required>
+              <label for="edit-account-picture" class="form-label fw-bold">Account Picture</label>
+              <input v-model="editableAccountData.picture" class="w-100" type="url" id="edit-account-picture" required>
             </div>
             <div class="mb-3">
-              <label for="edit-account-coverImg" class="form-label"></label>
-              <input v-model="editableAccountData.coverImg" type="url" id="edit-account-coverImg" required>
+              <label for="edit-account-coverImg" class="form-label fw-bold">Account Cover Image</label>
+              <input v-model="editableAccountData.coverImg" class="w-100" type="url" id="edit-account-coverImg"
+                required>
             </div>
             <div class="d-flex justify-content-end">
               <button type="submit" class="btn btn-primary fw-bold create-button text-light"
