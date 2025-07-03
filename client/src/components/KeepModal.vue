@@ -37,9 +37,9 @@ async function saveKeepToVault() {
   <!-- Modal -->
   <div class="modal fade" id="keeps-modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="keep-modal-label"
     aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-fullscreen-md-down modal-dialog-centered">
       <div class="modal-content">
-        <div class="container">
+        <div class="modal-body container-fluid">
           <div class="row">
             <div class="col-12 col-md-6 p-0">
               <img class="img-fluid w-100 modal-img modal-img-corners" :src="keep?.img"
@@ -48,9 +48,11 @@ async function saveKeepToVault() {
             </div>
             <div class="col-12 col-md-6">
               <div class="d-flex h-100 flex-column justify-content-between">
-                <div class="text-center mt-3">
-                  <span class="mdi mdi-eye-outline">{{ keep?.views }}</span>
+                <div class="text-center mt-3 d-flex">
+                  <span class="mdi mdi-eye-outline margin-left-auto">{{ keep?.views }}</span>
                   <span class="mdi mdi-alpha-k-box-outline">{{ keep?.kept }}</span>
+                  <button type="button" class="btn-close close-button margin-left-auto" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
                 </div>
                 <div class="text-center">
                   <p class="modal-title fs-5 fw-bold mb-4" id="keeps-modal-label">{{ keep?.name }}</p>
@@ -68,7 +70,7 @@ async function saveKeepToVault() {
                     </form>
                   </div>
                   <RouterLink v-if="keep" :to="{ name: 'Profile Page', params: { profileId: keep?.creatorId } }"
-                    class="profile-thumbnail-pos">
+                    class="margin-left-auto">
                     <img data-bs-dismiss="modal" class="profile-thumbnail" :src="keep?.creator.picture"
                       :alt="`Picture of ${keep?.creator.name}, creator of this keep`"
                       :title="`Picture of ${keep?.creator.name}, creator of this keep`">
@@ -89,7 +91,25 @@ async function saveKeepToVault() {
   outline: 1px solid black;
 }
 
-.profile-thumbnail-pos {
+.margin-left-auto {
   margin-left: auto;
+}
+
+.modal-body {
+  padding: 0 12px 0 12px;
+
+  // NOTE Come back to this after figuring out the vault save select list width being too large (likely due to the length of the vault names. Might need to go with formatting the modal differently if ~30 char is still too long.)
+  // @media screen AND (max-width: 992px) {
+  //   .img-fluid {
+  //     height: 100%;
+  //     aspect-ratio: 1/1;
+  //   }
+  // }
+
+  @media screen AND (max-width: 767.98px) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 0px;
+  }
 }
 </style>

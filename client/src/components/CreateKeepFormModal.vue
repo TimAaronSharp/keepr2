@@ -30,26 +30,27 @@ async function createKeep() {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="d-flex justify-content-between">
-          <h1 class="modal-title fs-2 my-4 ms-4" id="create-keep-backdrop-label">Add your keep</h1>
+          <h1 class="modal-title fs-2 my-4 ms-4" id="create-keep-backdrop-label">Create Your Keep</h1>
           <button type="button" class="btn-close mt-3 me-3 close-button" data-bs-dismiss="modal"
             aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form @submit.prevent="createKeep()">
             <div class="mb-3">
-              <label for="keep-name" class="form-label"></label>
-              <input v-model="editableKeepData.name" id="keep-name" type="text" placeholder="Name...">
+              <label for="keep-name" class="form-label fw-bold">Keep Name</label>
+              <input v-model="editableKeepData.name" class="w-100" id="keep-name" type="text" placeholder="Name...">
             </div>
             <div class="mb-3">
-              <label for="keep-img" class="form-label"></label>
-              <input v-model="editableKeepData.img" id="keep-img" type="text" placeholder="Img URL...">
+              <label for="keep-img" class="form-label fw-bold">Keep Image URL</label>
+              <input v-model="editableKeepData.img" class="w-100" id="keep-img" type="text" placeholder="Img URL...">
             </div>
             <div class="mb-3">
-              <label for="keep-description" class="form-label"></label>
-              <textarea v-model="editableKeepData.description" id="keep-description" type="text"
+              <label for="keep-description" class="form-label fw-bold">Keep Description</label>
+              <textarea v-model="editableKeepData.description" class="w-100" id="keep-description" type="text"
                 placeholder="Description..."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary text-light fw-bold create-button">Create</button>
+            <button type="submit" class="btn btn-primary text-light fw-bold create-button"
+              data-bs-dismiss="modal">Create Keep</button>
           </form>
         </div>
       </div>
@@ -58,4 +59,8 @@ async function createKeep() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+textarea {
+  height: 5rem;
+}
+</style>
