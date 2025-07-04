@@ -108,10 +108,6 @@ async function removeKeep() {
   margin-left: 12px;
 }
 
-.margin-left-auto {
-  margin-left: auto;
-}
-
 .keep-delete-button {
   margin-right: 10px;
 }
