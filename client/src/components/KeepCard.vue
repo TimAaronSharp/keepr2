@@ -67,12 +67,12 @@ async function removeKeep() {
 <template>
   <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
     <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
-      class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light modal-margin-left"
+      class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light remove-vault-keep"
       :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
-    <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex creator-buttons-pos fs-4">
-      <button @click="getKeepById()" class="mdi mdi-pencil text-light" data-bs-toggle="modal"
+    <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex fs-4 w-100">
+      <button @click="getKeepById()" class="mdi mdi-pencil text-light p-0 margin-left-auto" data-bs-toggle="modal"
         data-bs-target="#edit-keep-modal" :aria-label="`Edit button for keep named ${keepProp?.name}`"></button>
-      <button @click="deleteKeep()" class="mdi mdi-close-circle p-0 text-red"
+      <button @click="deleteKeep()" class="mdi mdi-close-circle p-0 text-red keep-delete-button"
         :aria-label="`Delete button for keep titled ${keepProp?.name}`"
         :title="`Delete button for keep: ${keepProp?.name}`"></button>
     </div>
@@ -106,5 +106,17 @@ async function removeKeep() {
 
 .modal-margin-left {
   margin-left: 12px;
+}
+
+.margin-left-auto {
+  margin-left: auto;
+}
+
+.keep-delete-button {
+  margin-right: 10px;
+}
+
+.remove-vault-keep {
+  margin-left: 5px;
 }
 </style>
