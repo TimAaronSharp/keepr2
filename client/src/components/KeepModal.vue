@@ -55,13 +55,15 @@ async function saveKeepToVault() {
                     aria-label="Close"></button>
                 </div>
                 <div class="text-center">
-                  <p class="modal-title fs-5 fw-bold mb-4" id="keeps-modal-label">{{ keep?.name }}</p>
-                  <p>{{ keep?.description }}</p>
+                  <p class="modal-title fs-5 fw-bold mb-4 keep-mobile-space-between" id="keeps-modal-label">{{
+                    keep?.name }}</p>
+                  <p class="keep-mobile-space-between">{{ keep?.description }}</p>
                 </div>
-                <div class="d-flex justify-content-between mb-2 w-100">
+                <div class="d-flex justify-content-between mb-2 w-100 keep-mobile-space-between">
                   <div v-if="account">
                     <form @submit.prevent="saveKeepToVault()">
-                      <select v-model="selectedVault.vaultId" class="fw-bold" name="vault-select" id="vault-select">
+                      <select v-model="selectedVault.vaultId" class="fw-bold select-size" name="vault-select"
+                        id="vault-select">
                         <option disabled value="0">Select a Vault</option>
                         <option v-for="vault in vaults" :key="`vault option ` + vault.id" :value="vault.id">{{
                           vault.name }}</option>
@@ -110,6 +112,23 @@ async function saveKeepToVault() {
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 0px;
+  }
+}
+
+.keep-mobile-space-between {
+  @media screen AND (max-width: 767.98px) {
+    margin-top: 50px;
+  }
+}
+
+select {
+  @media screen AND (min-width: 991.98px) AND (max-width: 1199.98px) {
+    width: 75%;
+
+  }
+
+  @media screen AND (min-width: 767.99px) AND (max-width: 991.97px) {
+    width: 50%;
   }
 }
 </style>
