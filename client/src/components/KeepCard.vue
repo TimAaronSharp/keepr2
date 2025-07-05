@@ -82,9 +82,9 @@ async function removeKeep() {
         :alt="`A picture for the ${keepProp?.name}`" :title="`A picture for the keep titled ${keepProp?.name}`">
     </button>
     <div class="row w-100 position-absolute absolute-bottom text-shadow">
-      <div class="col-12 px-0">
-        <div class="d-flex modal-margin-left ps-3 pb-2 justify-content-between align-items-end w-100">
-          <button @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
+      <div class="col-12 px-0 w-100">
+        <div class="d-flex justify-content-between smoked-glass bottom-corner-radii glass-margin-left glass-width p-2">
+          <button class="p-0" @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
             :title="`Keep titled: ${keepProp?.name} created by ${keepProp?.creator.name}.`"> {{ keepProp?.name
             }}</button>
           <RouterLink v-if="keepProp" :to="{ name: 'Profile Page', params: { profileId: keepProp?.creatorId } }">
@@ -107,6 +107,34 @@ async function removeKeep() {
 // .modal-margin-left {
 //   margin-left: 12px;
 // }
+
+.glass-margin-left {
+  margin-left: 18px;
+}
+
+.glass-width {
+  width: 96.3%;
+
+  @media screen AND (max-width: 1399.98px) {
+    width: 96.7%;
+  }
+
+  @media screen AND (max-width: 1199.98px) {
+    width: 96.1%;
+  }
+
+  @media screen AND (max-width: 991.98px) {
+    width: 96.5%;
+  }
+
+  @media screen AND (max-width: 767.98px) {
+    width: 95.1%;
+  }
+}
+
+.glass-margin-right {
+  margin-right: 16px;
+}
 
 .keep-delete-button {
   margin-right: 10px;

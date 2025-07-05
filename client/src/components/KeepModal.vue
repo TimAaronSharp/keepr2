@@ -63,7 +63,7 @@ async function saveKeepToVault() {
                 <div class="d-flex justify-content-between mb-2 w-100 keep-mobile-space-between">
                   <div v-if="account">
                     <form @submit.prevent="saveKeepToVault()">
-                      <select v-model="selectedVault.vaultId" class="fw-bold select-size rounded" name="vault-select"
+                      <select v-model="selectedVault.vaultId" class="fw-bold rounded" name="vault-select"
                         id="vault-select">
                         <option class="first-option" disabled value="0">Select a Vault</option>
                         <option v-for="vault in vaults" :key="`vault option ` + vault.id" :value="vault.id">{{
@@ -152,6 +152,7 @@ async function saveKeepToVault() {
 
 select:focus {
   outline: 2px solid black;
+  // border: 2px solid black;
   /* Add a custom outline */
   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
   /* Add a subtle shadow */
@@ -164,9 +165,9 @@ select:focus {
 //   /* Add a subtle shadow */
 // }
 
-// select:not(:placeholder-shown):valid {
-//   outline: none;
-// }
+select:not(:placeholder-shown):valid {
+  outline-offset: -1px;
+}
 
 .modal-profile-thumbnail {
   margin-right: 8px;

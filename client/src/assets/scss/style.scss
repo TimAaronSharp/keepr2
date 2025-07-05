@@ -76,6 +76,16 @@ main {
   background-color: #2d2d2d;
 }
 
+.smoked-glass {
+  background-color: rgba(43, 43, 43, 0.719);
+  backdrop-filter: blur(4px);
+}
+
+.bottom-corner-radii {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
 // NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
 *:focus {
   // outline: 2px solid blue;
