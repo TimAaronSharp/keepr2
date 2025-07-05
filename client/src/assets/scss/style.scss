@@ -93,3 +93,24 @@ main {
   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
   //   /* Add a subtle shadow */
 }
+
+.font-marko {
+  font-family: marko;
+  font-weight: 400;
+}
+
+.font-quando {
+  font-family: quando;
+  font-weight: 400;
+}
+
+
+@font-face {
+  font-family: marko;
+  src: url('../fonts/MarkoOne-Regular.ttf');
+}
+
+@font-face {
+  font-family: quando;
+  src: url('../fonts/Quando-Regular.ttf');
+}

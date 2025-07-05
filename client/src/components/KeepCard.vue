@@ -65,7 +65,7 @@ async function removeKeep() {
 
 <!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
-  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
+  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold font-marko transparent-btn-style">
     <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
       class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light remove-vault-keep"
       :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>

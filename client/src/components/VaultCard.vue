@@ -30,7 +30,8 @@ async function deleteVault() {
 
 
 <template>
-  <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style element-shadow rounded">
+  <div
+    class="position-relative text-light text-shadow fw-bold font-quando my-3 transparent-btn-style element-shadow rounded">
     <div v-if="account?.id == vaultProp.creatorId" class="position-absolute justify-content-between fs-4 d-flex w-100">
       <div v-if="vaultProp.isPrivate" class="d-flex lock-icon-pos">
         <span class="mdi mdi-lock fs-4"
