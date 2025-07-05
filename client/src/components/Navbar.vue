@@ -19,18 +19,17 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md bg-codeworks border-bottom border-vue">
-    <div class="container gap-2">
-      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
-        <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Vue Starter</b>
-      </RouterLink>
-      <div v-if="account" class="d-flex align-items-center text-light dropdown">
-        <button role="button" class="transparent-btn-style text-light" data-bs-toggle="dropdown" aria-expanded="false"
-          title="Open Create Menu">
-          Create
-          <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
-        </button>
+  <nav class="navbar navbar-expand-md border-bottom sticky-navbar">
+    <div class="container">
+      <div class="d-flex gap-2">
+        <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
+        <div v-if="account" class="d-flex align-items-center text-light dropdown">
+          <button role="button" class="transparent-btn-style fw-bold" data-bs-toggle="dropdown" aria-expanded="false"
+            title="Open Create Menu">
+            Create
+            <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
+          </button>
+        </div>
         <div class="dropdown-menu dropdown-menu-start p-0" role="menu">
           <div class="list-group">
             <button data-bs-toggle="modal" data-bs-target="#create-keep-modal"
@@ -42,6 +41,10 @@ watch(theme, () => {
           </div>
         </div>
       </div>
+      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light margin-left-auto">
+        <img class="navbar-brand" alt="logo" src="/src\assets\img\keepr-logo.png" height="45" />
+        <!-- <b class="fs-5">Vue Starter</b> -->
+      </RouterLink>
       <!-- NOTE Will revisit if I decide to implement anything that a collapsable button would be useful for -->
       <!-- collapse button -->
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
@@ -85,5 +88,26 @@ a {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.border-bottom {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sticky-navbar {
+  background-color: #fef6f0;
+  position: fixed;
+  width: 100%;
+  z-index: 6;
+}
+
+.home-button {
+  background-color: #e9d8d6;
+  border-radius: 12px;
+  padding: 0 10px 0 10px;
+}
+
+.home-button:focus {
+  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
 }
 </style>
