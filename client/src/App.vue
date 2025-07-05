@@ -14,7 +14,7 @@ import { RouterView } from 'vue-router';
   <header>
     <Navbar />
   </header>
-  <main class="margin-for-navbar main-bg-color">
+  <main class="margin-for-navbar bg-color">
     <RouterView />
   </main>
   <footer class=" text-center">
@@ -31,9 +31,5 @@ import { RouterView } from 'vue-router';
 <style lang="scss">
 .margin-for-navbar {
   margin-top: 57px;
-}
-
-.main-bg-color {
-  background-color: #fef6f0;
 }
 </style>

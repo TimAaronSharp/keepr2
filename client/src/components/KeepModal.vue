@@ -46,7 +46,7 @@ async function saveKeepToVault() {
                 :alt="`A picture for the ${keep?.name} keep by ${keep?.creator.name}`"
                 :title="`A picture for the keep titled ${keep?.name} created by ${keep?.creator.name}`">
             </div>
-            <div class="col-12 col-md-6 pe-0">
+            <div class="col-12 col-md-6 pe-0 bg-color">
               <div class="d-flex h-100 flex-column justify-content-between">
                 <div class="mt-1 d-flex justify-content-center">
                   <span class="mdi mdi-eye-outline">{{ keep?.views }}</span>

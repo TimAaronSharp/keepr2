@@ -40,12 +40,12 @@ async function editVault() {
   <div class="modal fade" id="edit-vault-modal" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content bg-color">
         <div class="d-flex justify-content-between">
-          <h1 class="modal-title fs-2 my-4 ms-4"></h1>
+          <h1 class="modal-title bg-color fs-2 my-4 ms-4"></h1>
           <button class="btn-close mt-3 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-color">
           <form @submit.prevent="editVault()">
             <div class="mb-3 d-flex flex-column fw-bold">
               <label for="edit-vault-name" class="form-label">Vault Name</label>

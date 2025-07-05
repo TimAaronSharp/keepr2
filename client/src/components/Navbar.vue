@@ -19,7 +19,7 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md border-bottom sticky-navbar">
+  <nav class="navbar navbar-expand-md border-bottom sticky-navbar bg-color">
     <div class="container">
       <div class="d-flex gap-2">
         <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
@@ -29,15 +29,15 @@ watch(theme, () => {
             Create
             <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
           </button>
-        </div>
-        <div class="dropdown-menu dropdown-menu-start p-0" role="menu">
-          <div class="list-group">
-            <button data-bs-toggle="modal" data-bs-target="#create-keep-modal"
-              class="list-group-item dropdown-item list-group-item-action selectable" title="Create New Keep">
-              Create Keep</button>
-            <button data-bs-toggle="modal" data-bs-target="#create-vault-modal"
-              class="list-group-item dropdown-item list-group-item-action selectable" title="Create New Vault">
-              Create Vault</button>
+          <div class="dropdown-menu dropdown-menu-start p-0" role="menu">
+            <div class="list-group">
+              <button data-bs-toggle="modal" data-bs-target="#create-keep-modal"
+                class="list-group-item dropdown-item list-group-item-action selectable" title="Create New Keep">
+                Create Keep</button>
+              <button data-bs-toggle="modal" data-bs-target="#create-vault-modal"
+                class="list-group-item dropdown-item list-group-item-action selectable" title="Create New Vault">
+                Create Vault</button>
+            </div>
           </div>
         </div>
       </div>
@@ -95,7 +95,6 @@ a {
 }
 
 .sticky-navbar {
-  background-color: #fef6f0;
   position: fixed;
   width: 100%;
   z-index: 6;
