@@ -48,11 +48,11 @@ async function saveKeepToVault() {
             </div>
             <div class="col-12 col-md-6 pe-0">
               <div class="d-flex h-100 flex-column justify-content-between">
-                <div class="text-center mt-1 d-flex">
-                  <span class="mdi mdi-eye-outline margin-left-counts">{{ keep?.views }}</span>
+                <div class="mt-1 d-flex justify-content-center">
+                  <span class="mdi mdi-eye-outline">{{ keep?.views }}</span>
                   <span class="mdi mdi-alpha-k-box-outline">{{ keep?.kept }}</span>
-                  <button type="button" class="btn-close close-button margin-left-auto pe-2 pt-0"
-                    data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close close-button position-absolute pt-0" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
                 </div>
                 <!-- NOTE Decide whether you still need to adjust keep modal stylings (view/keep count and close button, spacing/sizing at different screen sizes (maybe move that to polish?)) -->
                 <div class="text-center">
@@ -90,6 +90,10 @@ async function saveKeepToVault() {
 
 
 <style lang="scss" scoped>
+.close-button {
+  right: .2%;
+}
+
 .save-button {
   color: white;
   background-color: #877a8f;
