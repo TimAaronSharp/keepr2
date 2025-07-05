@@ -46,9 +46,18 @@ main {
   outline: 1px solid black;
 }
 
+.transparent-btn-style {
+  background-color: transparent;
+  border: none;
+}
+
 .transparent-btn-style * {
   background-color: transparent;
   border: none;
+}
+
+.margin-left-auto {
+  margin-left: auto;
 }
 
 .creator-buttons-pos {
