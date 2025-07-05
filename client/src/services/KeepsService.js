@@ -8,7 +8,9 @@ class KeepsService{
   async create(keepData) {
     const res = await api.post('api/keeps', keepData)
     // logger.log("create returned ", res.data)
-    this.makeKeeps(res.data)
+    const createdKeep = this.makeKeeps(res.data)
+    // @ts-ignore
+    AppState.keeps.push(createdKeep)
   }
   // NOTE 💣 Delete keep request to the server.
   async delete(keepId) {
