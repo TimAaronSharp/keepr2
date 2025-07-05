@@ -123,14 +123,13 @@ async function getVaultKeepTrackersByVaultId() {
   overflow: hidden;
 }
 
-select {
-  // width:100%;
-  padding-left: 10px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: none;
-  // border-color: transparent;
-  outline: none;
-  border-bottom: 2px solid #7a8186;
-}
-</style>
+// select {
+//   // width:100%;
+//   padding-left: 10px;
+//   margin: 8px 0;
+//   box-sizing: border-box;
+//   border: none;
+//   // border-color: transparent;
+//   outline: none;
+//   border-bottom: 2px solid #7a8186;
+// }</style>

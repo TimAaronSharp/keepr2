@@ -43,7 +43,7 @@ main {
 .profile-thumbnail {
   height: 30px;
   border-radius: 50%;
-  outline: 1px solid black;
+  // outline: 1px solid black;
 }
 
 .transparent-btn-style {
@@ -74,4 +74,12 @@ main {
 
 .create-button {
   background-color: #2d2d2d;
+}
+
+// NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
+*:focus {
+  // outline: 2px solid blue;
+  //   /* Add a custom outline */
+  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+  //   /* Add a subtle shadow */
 }
