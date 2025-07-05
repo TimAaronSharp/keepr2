@@ -91,12 +91,12 @@ main {
 }
 
 // NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
-*:focus {
-  // outline: 2px solid blue;
-  //   /* Add a custom outline */
-  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
-  //   /* Add a subtle shadow */
-}
+// *:focus {
+//   // outline: 2px solid blue;
+//   //   /* Add a custom outline */
+//   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+//   //   /* Add a subtle shadow */
+// }
 
 .bg-color {
   background-color: #fef6f0;

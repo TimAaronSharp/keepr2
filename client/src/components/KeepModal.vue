@@ -108,7 +108,7 @@ async function saveKeepToVault() {
 .save-button:focus {
   outline: 2px solid black;
   /* Add a custom outline */
-  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+  // box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
   /* Add a subtle shadow */
 }
 
@@ -154,7 +154,7 @@ select:focus {
   outline: 2px solid black;
   // border: 2px solid black;
   /* Add a custom outline */
-  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+  // box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
   /* Add a subtle shadow */
 }
 

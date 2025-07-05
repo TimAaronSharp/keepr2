@@ -22,7 +22,9 @@ watch(theme, () => {
   <nav class="navbar navbar-expand-md border-bottom sticky-navbar bg-color">
     <div class="container">
       <div class="d-flex gap-2">
-        <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
+        <RouterLink :to="{ name: 'Home' }">
+          <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
+        </RouterLink>
         <div v-if="account" class="d-flex align-items-center text-light dropdown">
           <button role="button" class="transparent-btn-style fw-bold" data-bs-toggle="dropdown" aria-expanded="false"
             title="Open Create Menu">
@@ -106,7 +108,6 @@ a {
   padding: 0 10px 0 10px;
 }
 
-.home-button:focus {
-  box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
-}
-</style>
+// .home-button:focus {
+//   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+// }</style>
