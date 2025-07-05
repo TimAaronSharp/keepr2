@@ -136,11 +136,19 @@ async function editToggle() {
 
 .position-absolute-picture {
   top: 360px;
+
+  @media screen AND (max-width: 1399.98px) {
+    top: 325px;
+  }
 }
 
 .position-absolute-edit {
   top: 460px;
   right: 20px;
+
+  @media screen AND (max-width: 1399.98px) {
+    top: 410px;
+  }
 }
 
 .position-absolute-edit-option {
