@@ -88,7 +88,8 @@ async function removeKeep() {
       <div class="col-12 px-0 w-100">
         <div
           class="d-flex justify-content-between smoked-glass keep-bottom-corner-radii bottom-glass-margin-left glass-width p-2">
-          <button class="p-0" @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
+          <button class="p-0 white-text text-shadow" @click="getKeepById()" data-bs-toggle="modal"
+            data-bs-target="#keeps-modal"
             :title="`Keep titled: ${keepProp?.name} created by ${keepProp?.creator.name}.`"> {{ keepProp?.name
             }}</button>
           <RouterLink v-if="keepProp" :to="{ name: 'Profile Page', params: { profileId: keepProp?.creatorId } }">

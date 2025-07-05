@@ -51,7 +51,7 @@ async function deleteVault() {
         <img :src="vaultProp?.img" :alt="`A picture for vault: ${vaultProp?.name}`"
           :title="`A picture for vault: ${vaultProp?.name}`" class="img-fluid rounded img-pos">
         <div class="position-absolute absolute-bottom smoked-glass w-100 vault-bottom-corner-radii">
-          <button class="ms-3">{{ vaultProp?.name }}</button>
+          <button class="ms-3 white-text text-shadow">{{ vaultProp?.name }}</button>
         </div>
       </div>
       <!-- NOTE Add a blurred glass background to title and creator buttons to see if that makes them easier to see in all cases (ie same color back ground as text/buttons) -->

@@ -86,7 +86,7 @@ async function editToggle() {
           <div class="position-absolute position-absolute-picture text-center">
             <img class="profile-img element-shadow" :src="profile?.picture" :alt="`${profile.name}'s profile picture.'`"
               :title="`${profile.name}'s profile picture.'`">
-            <p class="mt-4 fs-1-fw-bold-mb-0">{{ profile?.name }}</p>
+            <p class="mt-4 fs-1 fw-bold mb-0">{{ profile?.name }}</p>
             <p class="fs-5">{{ vaults?.length }} Vaults | {{ keeps?.length }} Keeps</p>
           </div>
           <div v-if="account?.id == profile?.id" class="transparent-btn-style">

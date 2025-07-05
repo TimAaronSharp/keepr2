@@ -90,6 +90,10 @@ main {
   height: 35px;
 }
 
+.text-shadow-white {
+  text-shadow: 1px 2px 4px var(--bs-light);
+}
+
 // NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
 // *:focus {
 //   // outline: 2px solid blue;
@@ -112,6 +116,9 @@ main {
   font-weight: 400;
 }
 
+.white-text {
+  color: white;
+}
 
 @font-face {
   font-family: marko;
