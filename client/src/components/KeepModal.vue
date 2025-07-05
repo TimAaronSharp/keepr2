@@ -42,18 +42,19 @@ async function saveKeepToVault() {
         <div class="modal-body container-fluid">
           <div class="row">
             <div class="col-12 col-md-6 p-0">
-              <img class="img-fluid w-100 modal-img modal-img-corners" :src="keep?.img"
+              <img class="img-fluid w-100 modal-img modal-img-corners h-100" :src="keep?.img"
                 :alt="`A picture for the ${keep?.name} keep by ${keep?.creator.name}`"
                 :title="`A picture for the keep titled ${keep?.name} created by ${keep?.creator.name}`">
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 pe-0">
               <div class="d-flex h-100 flex-column justify-content-between">
-                <div class="text-center mt-3 d-flex">
-                  <span class="mdi mdi-eye-outline margin-left-auto">{{ keep?.views }}</span>
+                <div class="text-center mt-1 d-flex">
+                  <span class="mdi mdi-eye-outline margin-left-counts">{{ keep?.views }}</span>
                   <span class="mdi mdi-alpha-k-box-outline">{{ keep?.kept }}</span>
-                  <button type="button" class="btn-close close-button margin-left-auto" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                  <button type="button" class="btn-close close-button margin-left-auto pe-2 pt-0"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <!-- NOTE Decide whether you still need to adjust keep modal stylings (view/keep count and close button, spacing/sizing at different screen sizes (maybe move that to polish?)) -->
                 <div class="text-center">
                   <p class="modal-title fs-5 fw-bold mb-4 keep-mobile-space-between" id="keeps-modal-label">{{
                     keep?.name }}</p>
@@ -64,7 +65,7 @@ async function saveKeepToVault() {
                     <form @submit.prevent="saveKeepToVault()">
                       <select v-model="selectedVault.vaultId" class="fw-bold select-size" name="vault-select"
                         id="vault-select">
-                        <option disabled value="0">Select a Vault</option>
+                        <option class="first-option" disabled value="0">Select a Vault</option>
                         <option v-for="vault in vaults" :key="`vault option ` + vault.id" :value="vault.id">{{
                           vault.name }}</option>
                       </select>
@@ -73,8 +74,8 @@ async function saveKeepToVault() {
                   </div>
                   <RouterLink v-if="keep" :to="{ name: 'Profile Page', params: { profileId: keep?.creatorId } }"
                     class="margin-left-auto">
-                    <img data-bs-dismiss="modal" class="profile-thumbnail" :src="keep?.creator.picture"
-                      :alt="`Picture of ${keep?.creator.name}, creator of this keep`"
+                    <img data-bs-dismiss="modal" class="profile-thumbnail modal-profile-thumbnail"
+                      :src="keep?.creator.picture" :alt="`Picture of ${keep?.creator.name}, creator of this keep`"
                       :title="`Picture of ${keep?.creator.name}, creator of this keep`">
                   </RouterLink>
                 </div>
@@ -90,11 +91,22 @@ async function saveKeepToVault() {
 
 <style lang="scss" scoped>
 .save-button {
+  color: white;
+  background-color: #877a8f;
   outline: 1px solid black;
+}
+
+.save-button:hover {
+  // color: black;
+  background-color: #2d2d2d;
 }
 
 .margin-left-auto {
   margin-left: auto;
+}
+
+.margin-left-counts {
+  margin-left: 45%;
 }
 
 .modal-body {
@@ -107,6 +119,12 @@ async function saveKeepToVault() {
   //     aspect-ratio: 1/1;
   //   }
   // }
+
+  .test-img {
+    @media screen AND (min-width: 767.99px) AND (max-width: 991.97px) {
+      aspect-ratio: 1/1;
+    }
+  }
 
   @media screen AND (max-width: 767.98px) {
     padding-left: 12px;
@@ -121,7 +139,41 @@ async function saveKeepToVault() {
   }
 }
 
+select:focus {
+  outline: 2px solid blue;
+  /* Add a custom outline */
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+  /* Add a subtle shadow */
+}
+
+button:focus {
+  outline: 2px solid blue;
+  /* Add a custom outline */
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+  /* Add a subtle shadow */
+}
+
+input {
+  outline: none;
+}
+
+.first-option {
+  outline: none;
+}
+
+select:not(:placeholder-shown):valid {
+  outline: none;
+}
+
+.modal-profile-thumbnail {
+  margin-right: 8px;
+}
+
 select {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #877a8f30;
+
   @media screen AND (min-width: 991.98px) AND (max-width: 1199.98px) {
     width: 75%;
 
@@ -130,5 +182,9 @@ select {
   @media screen AND (min-width: 767.99px) AND (max-width: 991.97px) {
     width: 50%;
   }
+}
+
+option {
+  outline: none;
 }
 </style>
