@@ -90,11 +90,6 @@ main {
   height: 35px;
 }
 
-.bottom-corner-radii {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
 // NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
 *:focus {
   // outline: 2px solid blue;

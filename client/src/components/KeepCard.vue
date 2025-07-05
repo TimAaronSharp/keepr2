@@ -87,7 +87,7 @@ async function removeKeep() {
     <div class="row w-100 position-absolute absolute-bottom text-shadow">
       <div class="col-12 px-0 w-100">
         <div
-          class="d-flex justify-content-between smoked-glass bottom-corner-radii bottom-glass-margin-left glass-width p-2">
+          class="d-flex justify-content-between smoked-glass keep-bottom-corner-radii bottom-glass-margin-left glass-width p-2">
           <button class="p-0" @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
             :title="`Keep titled: ${keepProp?.name} created by ${keepProp?.creator.name}.`"> {{ keepProp?.name
             }}</button>
@@ -150,5 +150,10 @@ async function removeKeep() {
 
 .remove-vault-keep {
   margin-left: 5px;
+}
+
+.keep-bottom-corner-radii {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 </style>
