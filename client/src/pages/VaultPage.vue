@@ -57,8 +57,8 @@ async function getVaultKeepTrackersByVaultId() {
             </div>
             <div class="d-flex justify-content-center text-light text-shadow">
               <div class="position-absolute absolute-bottom text-center">
-                <p class="ms-3 mb-0 fs-1 font-quando">{{ vault?.name }}</p>
-                <p class="ms-3">by: {{ vault?.creator.name }}</p>
+                <p class="mb-0 fs-1 font-quando">{{ vault?.name }}</p>
+                <p>by: {{ vault?.creator.name }}</p>
               </div>
             </div>
             <div v-if="account?.id == vault?.creatorId">
