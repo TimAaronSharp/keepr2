@@ -36,8 +36,8 @@ async function getVaultKeepTrackersByVaultId() {
     await vaultKeepsService.getVaultKeepTrackersByVaultId(route.params.vaultId)
   }
   catch (error) {
-    Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`);
-    logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`.toUpperCase(), error)
+    Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value?.name} id: ${vault.value?.id}`);
+    logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value?.name} id: ${vault.value?.id}`.toUpperCase(), error)
   }
 }
 

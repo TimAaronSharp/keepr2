@@ -51,14 +51,14 @@ async function getVaultsByProfileId() {
 
 async function removeKeep() {
   try {
-    const confirmed = await Pop.confirm(`Are you sure you want to remove keep: ${props.keepProp.name} from this vault?`, 'This will only remove this entry from this vault and will not delete it from the database.', 'Yes, Remove', "No, Don't Remove")
+    const confirmed = await Pop.confirm(`Are you sure you want to remove keep: ${props.keepProp?.name} from this vault?`, 'This will only remove this entry from this vault and will not delete it from the database.', 'Yes, Remove', "No, Don't Remove")
     if (!confirmed) return
     // @ts-ignore
-    await vaultKeepsService.delete(props.keepProp.vaultKeepId)
+    await vaultKeepsService.delete(props.keepProp?.vaultKeepId)
   }
   catch (error) {
-    Pop.error(error, `Could not remove keep: ${props.keepProp.name} from vault.`);
-    logger.error(`Could not remove keep: ${props.keepProp.name} from vault.`.toUpperCase(), error)
+    Pop.error(error, `Could not remove keep: ${props.keepProp?.name} from vault.`);
+    logger.error(`Could not remove keep: ${props.keepProp?.name} from vault.`.toUpperCase(), error)
   }
 }
 </script>
@@ -66,11 +66,11 @@ async function removeKeep() {
 <!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
   <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold font-marko transparent-btn-style">
-    <div v-if="keepProp?.creatorId == account?.id"
+    <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
+      class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light remove-vault-keep"
+      :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
+    <div v-if="keepProp?.creatorId == account?.id || account?.id == vault?.creatorId"
       class="smoked-glass top-glass-height position-absolute glass-width top-glass-margin-left top-corner-radii">
-      <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
-        class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light remove-vault-keep"
-        :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
       <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex fs-4 w-100">
         <button @click="getKeepById()" class="mdi mdi-pencil text-light p-0 margin-left-auto" data-bs-toggle="modal"
           data-bs-target="#edit-keep-modal" :aria-label="`Edit button for keep named ${keepProp?.name}`"></button>
@@ -151,6 +151,7 @@ async function removeKeep() {
 
 .remove-vault-keep {
   margin-left: 5px;
+  z-index: 6;
 }
 
 .keep-bottom-corner-radii {
