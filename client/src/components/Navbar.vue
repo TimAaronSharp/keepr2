@@ -7,6 +7,10 @@ import { AppState } from '@/AppState.js';
 const theme = ref(loadState('theme') || 'light')
 const account = computed(() => AppState.account)
 
+const logoMarginClass = computed(() => {
+  return account.value ? 'logo-margin-right-logged-in' : 'logo-margin-right-logged-out'
+})
+
 function toggleTheme() {
   theme.value = theme.value == 'light' ? 'dark' : 'light'
 }
@@ -25,9 +29,9 @@ watch(theme, () => {
         <RouterLink :to="{ name: 'Home' }">
           <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
         </RouterLink>
-        <div v-if="account" class="d-flex align-items-center text-light dropdown">
-          <button role="button" class="transparent-btn-style fw-bold" data-bs-toggle="dropdown" aria-expanded="false"
-            title="Open Create Menu">
+        <div v-if="account" class="d-flex align-items-center dropdown">
+          <button role="button" class="transparent-btn-style fw-bold py-0" data-bs-toggle="dropdown"
+            aria-expanded="false" title="Open Create Menu">
             Create
             <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
           </button>
@@ -43,10 +47,11 @@ watch(theme, () => {
           </div>
         </div>
       </div>
-      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light margin-left-auto">
+      <RouterLink :to="{ name: 'Home' }" id="keepr-logo"
+        :class="['d-flex', 'align-items-center', 'margin-left-auto', logoMarginClass]">
         <img class="navbar-brand" alt="logo" src="/src\assets\img\keepr-logo.png" height="45" />
-        <!-- <b class="fs-5">Vue Starter</b> -->
       </RouterLink>
+      <!-- <b class="fs-5">Vue Starter</b> -->
       <!-- NOTE Will revisit if I decide to implement anything that a collapsable button would be useful for -->
       <!-- collapse button -->
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
@@ -71,7 +76,7 @@ watch(theme, () => {
             <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
           </button> -->
       <!-- </div> -->
-      <Login class="margin-left-auto" />
+      <Login class="margin-left-auto py-0" />
     </div>
     <!-- </div> -->
   </nav>
@@ -107,6 +112,20 @@ a {
   border-radius: 12px;
   padding: 0 10px 0 10px;
 }
+
+.logo-margin-right-logged-in {
+  margin-right: 100px;
+}
+
+.logo-margin-right-logged-out {
+  margin-right: -23px;
+}
+
+a:hover {
+  color: black;
+}
+
+
 
 // .home-button:focus {
 //   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);

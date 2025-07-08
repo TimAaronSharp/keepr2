@@ -56,8 +56,9 @@ async function saveKeepToVault() {
                 </div>
                 <!-- NOTE Decide whether you still need to adjust keep modal stylings (view/keep count and close button, spacing/sizing at different screen sizes (maybe move that to polish?)) -->
                 <div class="text-center">
-                  <p class="modal-title fs-5 fw-bold mb-4 keep-mobile-space-between" id="keeps-modal-label">{{
-                    keep?.name }}</p>
+                  <p class="modal-title fs-5 fw-bold mb-4 keep-mobile-space-between font-marko" id="keeps-modal-label">
+                    {{
+                      keep?.name }}</p>
                   <p class="keep-mobile-space-between">{{ keep?.description }}</p>
                 </div>
                 <div class="d-flex justify-content-between mb-2 w-100 keep-mobile-space-between">

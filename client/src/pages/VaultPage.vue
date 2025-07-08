@@ -57,7 +57,7 @@ async function getVaultKeepTrackersByVaultId() {
             </div>
             <div class="d-flex justify-content-center text-light text-shadow">
               <div class="position-absolute absolute-bottom text-center">
-                <p class="ms-3 mb-0 fs-1">{{ vault?.name }}</p>
+                <p class="ms-3 mb-0 fs-1 font-quando">{{ vault?.name }}</p>
                 <p class="ms-3">by: {{ vault?.creator.name }}</p>
               </div>
             </div>
@@ -75,7 +75,7 @@ async function getVaultKeepTrackersByVaultId() {
         </div>
       </div>
     </div>
-    <div class="text-center my-4 fw-bold text-shadow text-light">
+    <div class="text-center my-4 fw-bold">
       <span class="remove-keep-border rounded p-1">{{ vault?.description }}</span>
     </div>
     <div class="row">
@@ -114,7 +114,7 @@ async function getVaultKeepTrackersByVaultId() {
 }
 
 .remove-keep-border {
-  border: 1px solid black;
+  // border: 1px solid black;
   background-color: #ded6e9;
 }
 

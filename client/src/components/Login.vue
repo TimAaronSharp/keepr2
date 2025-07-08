@@ -17,11 +17,11 @@ function logout() {
 
 <template>
   <span class="navbar-text">
-    <button class="btn selectable text-green" @click="login" v-if="!identity">
+    <button class="btn selectable text-green font-quando fw-bold" @click="login" v-if="!identity">
       Login
     </button>
     <div v-else>
-      <div class="dropdown">
+      <div class="dropdown font-marko">
         <div role="button" class="selectable no-select img-border-radius" data-bs-toggle="dropdown"
           aria-expanded="false" title="open account menu">
           <div v-if="account?.picture || identity?.picture">
