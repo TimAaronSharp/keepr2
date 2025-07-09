@@ -51,30 +51,33 @@ async function getVaultsByProfileId() {
 
 async function removeKeep() {
   try {
-    const confirmed = await Pop.confirm(`Are you sure you want to remove keep: ${props.keepProp.name} from this vault?`, 'This will only remove this entry from this vault and will not delete it from the database.', 'Yes, Remove', "No, Don't Remove")
+    const confirmed = await Pop.confirm(`Are you sure you want to remove keep: ${props.keepProp?.name} from this vault?`, 'This will only remove this entry from this vault and will not delete it from the database.', 'Yes, Remove', "No, Don't Remove")
     if (!confirmed) return
     // @ts-ignore
-    await vaultKeepsService.delete(props.keepProp.vaultKeepId)
+    await vaultKeepsService.delete(props.keepProp?.vaultKeepId)
   }
   catch (error) {
-    Pop.error(error, `Could not remove keep: ${props.keepProp.name} from vault.`);
-    logger.error(`Could not remove keep: ${props.keepProp.name} from vault.`.toUpperCase(), error)
+    Pop.error(error, `Could not remove keep: ${props.keepProp?.name} from vault.`);
+    logger.error(`Could not remove keep: ${props.keepProp?.name} from vault.`.toUpperCase(), error)
   }
 }
 </script>
 
 <!-- NOTE ❓ keepProp will have a vaultKeepId when being rendered on VaultPage.vue (in that case keepProp will be a VaultKeepTracker (which extends/inherits from Keep), instead of a Keep) -->
 <template>
-  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold transparent-btn-style">
+  <div @click="getVaultsByProfileId()" class="my-2 position-relative fw-bold font-marko transparent-btn-style">
     <button v-if="keepProp?.vaultKeepId && account?.id == vault?.creatorId" @click="removeKeep()"
       class="mdi mdi-eye-remove-outline position-absolute fs-4 text-light remove-vault-keep"
       :aria-label="`Button to remove ${keepProp?.name} from vault.`"></button>
-    <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex fs-4 w-100">
-      <button @click="getKeepById()" class="mdi mdi-pencil text-light p-0 margin-left-auto" data-bs-toggle="modal"
-        data-bs-target="#edit-keep-modal" :aria-label="`Edit button for keep named ${keepProp?.name}`"></button>
-      <button @click="deleteKeep()" class="mdi mdi-close-circle p-0 text-red keep-delete-button"
-        :aria-label="`Delete button for keep titled ${keepProp?.name}`"
-        :title="`Delete button for keep: ${keepProp?.name}`"></button>
+    <div v-if="keepProp?.creatorId == account?.id || account?.id == vault?.creatorId"
+      class="smoked-glass top-glass-height position-absolute glass-width top-glass-margin-left top-corner-radii">
+      <div v-if="keepProp?.creatorId == account?.id" class="position-absolute d-flex fs-4 w-100">
+        <button @click="getKeepById()" class="mdi mdi-pencil text-light p-0 margin-left-auto" data-bs-toggle="modal"
+          data-bs-target="#edit-keep-modal" :aria-label="`Edit button for keep named ${keepProp?.name}`"></button>
+        <button @click="deleteKeep()" class="mdi mdi-close-circle p-0 text-red keep-delete-button"
+          :aria-label="`Delete button for keep titled ${keepProp?.name}`"
+          :title="`Delete button for keep: ${keepProp?.name}`"></button>
+      </div>
     </div>
     <button @click="getKeepById()" class="text-shadow w-100" data-bs-toggle="modal" data-bs-target="#keeps-modal"
       :aria-label="`Button to select keep named ${keepProp?.name}`">
@@ -82,9 +85,11 @@ async function removeKeep() {
         :alt="`A picture for the ${keepProp?.name}`" :title="`A picture for the keep titled ${keepProp?.name}`">
     </button>
     <div class="row w-100 position-absolute absolute-bottom text-shadow">
-      <div class="col-12 px-0">
-        <div class="d-flex modal-margin-left ps-3 pb-2 justify-content-between align-items-end w-100">
-          <button @click="getKeepById()" data-bs-toggle="modal" data-bs-target="#keeps-modal"
+      <div class="col-12 px-0 w-100">
+        <div
+          class="d-flex justify-content-between smoked-glass keep-bottom-corner-radii bottom-glass-margin-left glass-width p-2">
+          <button class="p-0 white-text text-shadow" @click="getKeepById()" data-bs-toggle="modal"
+            data-bs-target="#keeps-modal"
             :title="`Keep titled: ${keepProp?.name} created by ${keepProp?.creator.name}.`"> {{ keepProp?.name
             }}</button>
           <RouterLink v-if="keepProp" :to="{ name: 'Profile Page', params: { profileId: keepProp?.creatorId } }">
@@ -104,9 +109,41 @@ async function removeKeep() {
   right: 0;
 }
 
+.top-glass-margin-left {
+  margin-left: 6px;
+}
+
 // .modal-margin-left {
 //   margin-left: 12px;
 // }
+
+.bottom-glass-margin-left {
+  margin-left: 18px;
+}
+
+.glass-width {
+  width: 96.3%;
+
+  @media screen AND (max-width: 1399.98px) {
+    width: 96.7%;
+  }
+
+  @media screen AND (max-width: 1199.98px) {
+    width: 96.1%;
+  }
+
+  @media screen AND (max-width: 991.98px) {
+    width: 96.5%;
+  }
+
+  @media screen AND (max-width: 767.98px) {
+    width: 95.1%;
+  }
+}
+
+.glass-margin-right {
+  margin-right: 16px;
+}
 
 .keep-delete-button {
   margin-right: 10px;
@@ -114,5 +151,11 @@ async function removeKeep() {
 
 .remove-vault-keep {
   margin-left: 5px;
+  z-index: 6;
+}
+
+.keep-bottom-corner-radii {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 </style>

@@ -30,8 +30,10 @@ async function deleteVault() {
 
 
 <template>
-  <div class="position-relative text-light text-shadow fw-bold my-3 transparent-btn-style element-shadow rounded">
-    <div v-if="account?.id == vaultProp.creatorId" class="position-absolute justify-content-between fs-4 d-flex w-100">
+  <div
+    class="position-relative text-light text-shadow fw-bold font-quando my-3 transparent-btn-style element-shadow rounded">
+    <div v-if="account?.id == vaultProp.creatorId"
+      class="position-absolute justify-content-between fs-4 d-flex w-100 smoked-glass top-corner-radii">
       <div v-if="vaultProp.isPrivate" class="d-flex lock-icon-pos">
         <span class="mdi mdi-lock fs-4"
           :aria-label="`Vault: ${vaultProp?.name} is set to private. Only you can see and access it.`"
@@ -48,8 +50,8 @@ async function deleteVault() {
         <!-- NOTE Investigate solutions for ensuring the img fills the div like the test images do (in the final you ended up giving the imgs specific px sizes and that ended up working, even seeming to resize properly, but it would be good to contact Jeremy/Mick/Jake to see if I'm forgetting how some things with bootstrap work (why the sizing with the test images seems to work differently compared to the big landscape img I used, imgs don't seem to fill to the top/bottom of the card, etc.))-->
         <img :src="vaultProp?.img" :alt="`A picture for vault: ${vaultProp?.name}`"
           :title="`A picture for vault: ${vaultProp?.name}`" class="img-fluid rounded img-pos">
-        <div class="position-absolute absolute-bottom">
-          <button class="ms-3 fs-2">{{ vaultProp?.name }}</button>
+        <div class="position-absolute absolute-bottom smoked-glass w-100 vault-bottom-corner-radii">
+          <button class="ms-3 white-text text-shadow">{{ vaultProp?.name }}</button>
         </div>
       </div>
       <!-- NOTE Add a blurred glass background to title and creator buttons to see if that makes them easier to see in all cases (ie same color back ground as text/buttons) -->
@@ -81,5 +83,10 @@ async function deleteVault() {
 
 .delete-button {
   margin-right: 5px;
+}
+
+.vault-bottom-corner-radii {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 </style>

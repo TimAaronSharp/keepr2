@@ -4,10 +4,8 @@
 
 <template>
   <div class="about">
-    <h1>This is the about page</h1>
+    <!-- NOTE Will come back to this later. -->
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

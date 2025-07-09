@@ -14,7 +14,7 @@ import { RouterView } from 'vue-router';
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="margin-for-navbar bg-color">
     <RouterView />
   </main>
   <footer class=" text-center">
@@ -28,4 +28,8 @@ import { RouterView } from 'vue-router';
   <KeepModal />
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.margin-for-navbar {
+  margin-top: 57px;
+}
+</style>

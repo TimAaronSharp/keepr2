@@ -43,7 +43,7 @@ main {
 .profile-thumbnail {
   height: 30px;
   border-radius: 50%;
-  outline: 1px solid black;
+  // outline: 1px solid black;
 }
 
 .transparent-btn-style {
@@ -74,4 +74,58 @@ main {
 
 .create-button {
   background-color: #2d2d2d;
+}
+
+.smoked-glass {
+  background-color: rgba(43, 43, 43, 0.719);
+  backdrop-filter: blur(4px);
+}
+
+.top-corner-radii {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.top-glass-height {
+  height: 35px;
+}
+
+.text-shadow-white {
+  text-shadow: 1px 2px 4px var(--bs-light);
+}
+
+// NOTE Tentative focus highlight box-shadow to make tab-focusing more noticeable. Will continue to test.
+// *:focus {
+//   // outline: 2px solid blue;
+//   //   /* Add a custom outline */
+//   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
+//   //   /* Add a subtle shadow */
+// }
+
+.bg-color {
+  background-color: #fef6f0;
+}
+
+.font-marko {
+  font-family: marko;
+  font-weight: 400;
+}
+
+.font-quando {
+  font-family: quando;
+  font-weight: 400;
+}
+
+.white-text {
+  color: white;
+}
+
+@font-face {
+  font-family: marko;
+  src: url('../fonts/MarkoOne-Regular.ttf');
+}
+
+@font-face {
+  font-family: quando;
+  src: url('../fonts/Quando-Regular.ttf');
 }

@@ -9,7 +9,9 @@ class VaultsService{
   async create(vaultData){
     const res = await api.post('api/vaults', vaultData)
     logger.log("VaultsService.create() returned ", res.data)
-    this.make(res.data)
+    const createdVault = this.make(res.data)
+    // @ts-ignore
+    AppState.vaults.push(createdVault)
   }
 
   // NOTE 💣 Delete (delete) vault request to server.

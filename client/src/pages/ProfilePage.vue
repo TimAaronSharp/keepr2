@@ -86,7 +86,7 @@ async function editToggle() {
           <div class="position-absolute position-absolute-picture text-center">
             <img class="profile-img element-shadow" :src="profile?.picture" :alt="`${profile.name}'s profile picture.'`"
               :title="`${profile.name}'s profile picture.'`">
-            <p class="mt-4 fs-1-fw-bold-mb-0">{{ profile?.name }}</p>
+            <p class="mt-4 fs-1 fw-bold mb-0">{{ profile?.name }}</p>
             <p class="fs-5">{{ vaults?.length }} Vaults | {{ keeps?.length }} Keeps</p>
           </div>
           <div v-if="account?.id == profile?.id" class="transparent-btn-style">
@@ -103,7 +103,7 @@ async function editToggle() {
     </div>
     <div class="row content-margin-top">
       <p class="fs-1 fw-bold">Vaults</p>
-      <div class="col-6 col-md-3 outline-style" v-for="vault in vaults" :key="'vault ' + vault?.id">
+      <div class="col-6 col-md-3" v-for="vault in vaults" :key="'vault ' + vault?.id">
         <VaultCard :vaultProp="vault" />
       </div>
     </div>
@@ -136,11 +136,19 @@ async function editToggle() {
 
 .position-absolute-picture {
   top: 360px;
+
+  @media screen AND (max-width: 1399.98px) {
+    top: 325px;
+  }
 }
 
 .position-absolute-edit {
   top: 460px;
   right: 20px;
+
+  @media screen AND (max-width: 1399.98px) {
+    top: 410px;
+  }
 }
 
 .position-absolute-edit-option {

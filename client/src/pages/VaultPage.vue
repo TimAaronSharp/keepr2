@@ -36,8 +36,8 @@ async function getVaultKeepTrackersByVaultId() {
     await vaultKeepsService.getVaultKeepTrackersByVaultId(route.params.vaultId)
   }
   catch (error) {
-    Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`);
-    logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value.name} id: ${vault.value.id}`.toUpperCase(), error)
+    Pop.error(error, `Could not get vaultKeepTrackers for vault: ${vault.value?.name} id: ${vault.value?.id}`);
+    logger.error(`Could not get vaultKeepTrackers for vault: ${vault.value?.name} id: ${vault.value?.id}`.toUpperCase(), error)
   }
 }
 
@@ -57,8 +57,8 @@ async function getVaultKeepTrackersByVaultId() {
             </div>
             <div class="d-flex justify-content-center text-light text-shadow">
               <div class="position-absolute absolute-bottom text-center">
-                <p class="ms-3 mb-0 fs-1">{{ vault?.name }}</p>
-                <p class="ms-3">by: {{ vault?.creator.name }}</p>
+                <p class="mb-0 fs-1 font-quando">{{ vault?.name }}</p>
+                <p>by: {{ vault?.creator.name }}</p>
               </div>
             </div>
             <div v-if="account?.id == vault?.creatorId">
@@ -75,7 +75,7 @@ async function getVaultKeepTrackersByVaultId() {
         </div>
       </div>
     </div>
-    <div class="text-center my-4 fw-bold text-shadow text-light">
+    <div class="text-center my-4 fw-bold">
       <span class="remove-keep-border rounded p-1">{{ vault?.description }}</span>
     </div>
     <div class="row">
@@ -114,7 +114,7 @@ async function getVaultKeepTrackersByVaultId() {
 }
 
 .remove-keep-border {
-  border: 1px solid black;
+  // border: 1px solid black;
   background-color: #ded6e9;
 }
 
@@ -123,14 +123,13 @@ async function getVaultKeepTrackersByVaultId() {
   overflow: hidden;
 }
 
-select {
-  // width:100%;
-  padding-left: 10px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: none;
-  // border-color: transparent;
-  outline: none;
-  border-bottom: 2px solid #7a8186;
-}
-</style>
+// select {
+//   // width:100%;
+//   padding-left: 10px;
+//   margin: 8px 0;
+//   box-sizing: border-box;
+//   border: none;
+//   // border-color: transparent;
+//   outline: none;
+//   border-bottom: 2px solid #7a8186;
+// }</style>
