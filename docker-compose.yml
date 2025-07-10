@@ -1,19 +1,10 @@
-# docker-compose.yml
 services:
-  frontend:
-    container_name: frontend
-    image: ghcr.io/timaaronsharp/keepr2:latest
-    labels:
-      caddy.domain: domain.dev
-      caddy.type: static
-      caddy.mount_path: /srv/frontend
-
-  appname:
-    container_name: keepr2
-    image: ghcr.io/timaaronsharp/keepr2:latest
+  quick:                    # Name of the service
+    container_name: keepr2   # Name of the container
+    image: ghcr.io/timaaronsharp/keepr2:latest  # Use the latest image from GHCR
     ports: 
-      - "7045:8080"
+      - "7045:8080"         # Map port 7045 on the host to port 8080 in the container
     env_file:
-      - .env.keepr2 
+      - .env.keepr2          # Load environment variables from .env.quick file
     labels:
-      caddy.domain: ec2-54-151-10-69.us-west-1.compute.amazonaws.com
+      caddy.domain: ec2-54-151-10-69.us-west-1.compute.amazonaws.com  # Caddy label for domain routing <quick.gregslist.dev>
