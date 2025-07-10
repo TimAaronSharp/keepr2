@@ -11,7 +11,7 @@ jobs:
 
       - name: Prepare .env_files
         run: |
-          printf "%s" "${{ secrets.ENV_APPNAME }}" > .env.appname
+          printf "%s" "${{ secrets.ENV_APPNAME }}" > .env.keepr2
               
       - name: Deploy with Infra
         uses: codeworksacademy/infra@main
