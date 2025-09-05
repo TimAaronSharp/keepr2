@@ -155,7 +155,7 @@ async function editToggle() {
 }
 
 .position-absolute-edit-option {
-  top: 520px;
+  top: 110%;
   right: 0;
   border-radius: 20px;
   padding: 5px;
