@@ -99,6 +99,9 @@ async function editToggle() {
             </div>
           </div>
         </div>
+        <div v-else>
+          <h1>Loading... <i class="mdi mdi-loading mdi-spin"></i></h1>
+        </div>
       </div>
     </div>
     <div class="row content-margin-top">
