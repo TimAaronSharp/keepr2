@@ -17,9 +17,6 @@ import { RouterView } from 'vue-router';
   <main class="margin-for-navbar bg-color">
     <RouterView />
   </main>
-  <footer class=" text-center">
-    Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
-  </footer>
   <CreateKeepFormModal />
   <CreateVaultFormModal />
   <EditAccountFormModal />
