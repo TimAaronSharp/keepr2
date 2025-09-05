@@ -7,10 +7,6 @@ import { AppState } from '@/AppState.js';
 const theme = ref(loadState('theme') || 'light')
 const account = computed(() => AppState.account)
 
-const logoMarginClass = computed(() => {
-  return account.value ? 'logo-margin-right-logged-in' : 'logo-margin-right-logged-out'
-})
-
 function toggleTheme() {
   theme.value = theme.value == 'light' ? 'dark' : 'light'
 }
@@ -25,12 +21,12 @@ watch(theme, () => {
 <template>
   <nav class="navbar navbar-expand-md border-bottom sticky-navbar bg-color">
     <div class="container">
-      <div class="d-flex gap-2">
-        <RouterLink :to="{ name: 'Home' }">
+      <div class="d-flex gap-2 flex-1">
+        <RouterLink :to="{ name: 'Home' }" class="home-button-router-link">
           <button class="d-flex align-items-center btn home-button fw-bold">Home</button>
         </RouterLink>
         <div v-if="account" class="d-flex align-items-center dropdown">
-          <button role="button" class="transparent-btn-style fw-bold py-0" data-bs-toggle="dropdown"
+          <button role="button" class="transparent-btn-style fw-bold py-0 create-menu-mobile" data-bs-toggle="dropdown"
             aria-expanded="false" title="Open Create Menu">
             Create
             <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
@@ -47,9 +43,8 @@ watch(theme, () => {
           </div>
         </div>
       </div>
-      <RouterLink :to="{ name: 'Home' }" id="keepr-logo"
-        :class="['d-flex', 'align-items-center', 'margin-left-auto', logoMarginClass]">
-        <img class="navbar-brand" alt="logo" src="/src\assets\img\keepr-logo.png" height="45" />
+      <RouterLink :to="{ name: 'Home' }" id="keepr-logo" class="d-flex align-items-center flex-1">
+        <img alt=" logo" src="/src\assets\img\keepr-logo.png" height="45" />
       </RouterLink>
       <!-- <b class="fs-5">Vue Starter</b> -->
       <!-- NOTE Will revisit if I decide to implement anything that a collapsable button would be useful for -->
@@ -76,7 +71,7 @@ watch(theme, () => {
             <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
           </button> -->
       <!-- </div> -->
-      <Login class="margin-left-auto py-0" />
+      <Login class="py-0" />
     </div>
     <!-- </div> -->
   </nav>
@@ -107,26 +102,28 @@ a {
   z-index: 6;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 .home-button {
   background-color: #e9d8d6;
   border-radius: 12px;
   padding: 0 10px 0 10px;
 }
 
-.logo-margin-right-logged-in {
-  margin-right: 100px;
-}
+@media (hover: none) and (pointer: coarse) {
+  .home-button-router-link {
+    display: none;
+  }
 
-.logo-margin-right-logged-out {
-  margin-right: -23px;
+  .create-menu-mobile {
+    padding: 0;
+  }
+
 }
 
 a:hover {
   color: black;
 }
-
-
-
-// .home-button:focus {
-//   box-shadow: 0 0 50px rgba(0, 0, 255, 0.5);
-// }</style>
+</style>
