@@ -135,20 +135,20 @@ async function editToggle() {
 }
 
 .position-absolute-picture {
-  top: 360px;
+  top: 80%;
 
-  @media screen AND (max-width: 1399.98px) {
-    top: 325px;
-  }
+  // @media screen AND (max-width: 1399.98px) {
+  //   top: 325px;
+  // }
 }
 
 .position-absolute-edit {
-  top: 460px;
-  right: 20px;
+  top: 100%;
+  right: 1.5%;
 
-  @media screen AND (max-width: 1399.98px) {
-    top: 410px;
-  }
+  // @media screen AND (max-width: 1399.98px) {
+  //   top: 410px;
+  // }
 }
 
 .position-absolute-edit-option {
